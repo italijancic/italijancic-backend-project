@@ -10,26 +10,26 @@ export class ProductManager {
   async addProduct(newProduct) {
     try {
       // Validate constructor data
-      if (!this.#validateFields(newProduct))
-        return
+      this.#validateFields(newProduct)
 
       // Read products from file
       await this.#readProducts()
 
       // Validate product code not repeat
       if (this.products.find((product) => product.code === newProduct.code)) {
-        console.log('Product code already exist')
-        return
+        throw new Error('Product code already exist')
       }
 
       const product = {
         id: this.#getMaxId() + 1,
         title: newProduct.title,
         description: newProduct.description,
-        price: newProduct.price,
-        thumbnail: newProduct.thumbnail,
         code: newProduct.code,
-        stock: newProduct.stock
+        price: newProduct.price,
+        status: newProduct.status,
+        stock: newProduct.stock,
+        category: newProduct.category,
+        thumbnails: newProduct.thumbnails
       }
 
       this.products.push(product)
@@ -38,7 +38,7 @@ export class ProductManager {
       await fs.promises.writeFile(this.path, JSON.stringify(this.products), 'utf-8')
 
     } catch (error) {
-      throw new Error('Error adding new product')
+      throw new Error(error.message)
     }
 
   }
@@ -86,11 +86,11 @@ export class ProductManager {
         // Write on file
         await fs.promises.writeFile(this.path, JSON.stringify(this.products), 'utf-8')
       } else {
-        console.log('Bad or missing porduct id')
+        throw new Error('Bad or missing porduct id')
       }
 
     } catch (error) {
-      throw new Error('Error updating product')
+      throw new Error(error.message)
     }
   }
 
@@ -128,39 +128,39 @@ export class ProductManager {
 
   #validateFields(newProduct) {
 
-    const { title, description, price, thumbnail, code, stock } = newProduct
+    const { title, description, code, price, status, stock, category, thumbnails } = newProduct
 
     if (!title || !isNaN(title)) {
-      console.log('Bad or missing title. Must be a string')
-      return false
+      throw new Error('Bad or missing title. Must be a string')
     }
 
     if (!description || !isNaN(description)) {
-      console.log('Bad or missing description. Must be a string')
-      return false
-    }
-
-    if (!price || isNaN(price) || price < 0) {
-      console.log(`Bad or missing price. Must be a number grather than zero. price = ${price}`)
-      return false
-    }
-
-    if (!thumbnail || !isNaN(thumbnail)) {
-      console.log('Bad or missing thumbnail. Must be a string')
-      return false
+      throw new Error('Bad or missing description. Must be a string')
     }
 
     if (!code || !isNaN(code)) {
-      console.log('Bad or missing code. Must be a string')
-      return false
+      throw new Error('Bad or missing code. Must be a string')
+    }
+
+    if (!price || isNaN(price) || price < 0) {
+      throw new Error(`Bad or missing price. Must be a number grather than zero. price = ${price}`)
+    }
+
+    if (!status) {
+      throw new Error('Missing status flag')
     }
 
     if (!stock || isNaN(stock) || stock < 0) {
-      console.log(`Bad or missing stock. Must be a number grather than zero. stock = ${stock}`)
-      return false
+      throw new Error(`Bad or missing stock. Must be a number grather than zero. stock = ${stock}`)
     }
 
-    return true
+    if (!category || !isNaN(category)) {
+      throw new Error('Bad or missing category. Must be a string')
+    }
+
+    if (!thumbnails) {
+      throw new Error('Missing thumbnail')
+    }
 
   }
 
