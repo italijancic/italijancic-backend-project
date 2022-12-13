@@ -1,8 +1,12 @@
+import { ProductManager } from '../services/products.services.js'
+
+const productManager = new ProductManager('./src/store/products.json')
 
 export const getProducts = async (req, res) => {
   try {
     let { limit } = req.query
-    const products = await req.productManager.getProducts()
+    // const products = await req.productManager.getProducts()
+    const products = await productManager.getProducts()
 
     if (!isNaN(limit)) {
       res.status(200).json({
@@ -33,7 +37,8 @@ export const getproductById = async (req, res) => {
     let { pid } = req.params
 
     if (!isNaN(pid)) {
-      const foundedProduct = await req.productManager.getproductById(Number(pid))
+      // const foundedProduct = await req.productManager.getproductById(Number(pid))
+      const foundedProduct = await productManager.getproductById(Number(pid))
       res.status(200).json({
         success: true,
         pid: foundedProduct
