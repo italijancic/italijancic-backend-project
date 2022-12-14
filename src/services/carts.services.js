@@ -9,16 +9,12 @@ export class CartManager {
 
   async createNewCart() {
     try {
-
       await this.#readCarts()
-
       const newCart = {
         id: this.#getMaxId() + 1,
         products: []
       }
-
       this.carts.push(newCart)
-
       // Write on file
       await fs.promises.writeFile(this.path, JSON.stringify(this.carts), 'utf-8')
 
@@ -32,10 +28,8 @@ export class CartManager {
       this.#readCarts()
       const cart = await this.getCartById(cartId)
       const cartIndex = this.carts.findIndex((cart) => cart.id === cartId)
-
       // Che if product allready exist
       const productIndex = cart.products.findIndex((product) => product.id === productId)
-
       if (productIndex !== -1) {
         this.carts[cartIndex].products[productIndex].quantity++
       } else {

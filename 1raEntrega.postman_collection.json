@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "f792acca-2091-4797-b499-a99b3dd69e47",
+		"name": "1ra Entrega",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21958330"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BackURL}}/api/products?limit=1",
+					"host": [
+						"{{BackURL}}"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BackURL}}/api/products/:pid",
+					"host": [
+						"{{BackURL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						":pid"
+					],
+					"variable": [
+						{
+							"key": "pid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Test product from postman\",\n    \"description\": \"Producto de prueba\",\n    \"code\": \"KK90LK7\",\n    \"price\": 300,\n    \"status\": true,\n    \"stock\": 30,\n    \"category\": \"Test-3\",\n    \"thumbnails\": [\"./imgs/img-3.jpg\", \"./imgs/img-3-2.jpg\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BackURL}}/api/products",
+					"host": [
+						"{{BackURL}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product by Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BackURL}}/api/products/:pid",
+					"host": [
+						"{{BackURL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						":pid"
+					],
+					"variable": [
+						{
+							"key": "pid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product by Id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n    \"title\": \"Test product from postman\",\n    \"description\": \"Producto de prueba\",\n    \"code\": \"IE24T90\",\n    \"price\": 224,\n    \"status\": true,\n    \"stock\": 20,\n    \"category\": \"Test-2\",\n    \"thumbnails\": [\n      \"./imgs/img-2.jpg\",\n      \"./imgs/img-2-2.jpg\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BackURL}}/api/products/:pid",
+					"host": [
+						"{{BackURL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						":pid"
+					],
+					"variable": [
+						{
+							"key": "pid",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BackURL}}/api/carts",
+					"host": [
+						"{{BackURL}}"
+					],
+					"path": [
+						"api",
+						"carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add product to cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BackURL}}/api/carts/:cid/product/:pid",
+					"host": [
+						"{{BackURL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						":cid",
+						"product",
+						":pid"
+					],
+					"variable": [
+						{
+							"key": "cid",
+							"value": "1"
+						},
+						{
+							"key": "pid",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
