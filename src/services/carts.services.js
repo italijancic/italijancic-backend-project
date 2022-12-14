@@ -29,6 +29,7 @@ export class CartManager {
 
   async addProductToCart (cartId, productId) {
     try {
+      this.#readCarts()
       const cart = await this.getCartById(cartId)
       const cartIndex = this.carts.findIndex((cart) => cart.id === cartId)
 
@@ -36,39 +37,14 @@ export class CartManager {
       const productIndex = cart.products.findIndex((product) => product.id === productId)
 
       if (productIndex !== -1) {
-        // Update quantity
-        const updatedProducts = cart.products.map((product, index) => {
-          if (index === productIndex) {
-            return {
-              id: product.id,
-              quantity: product.quantity + 1
-            }
-          } else {
-            return product
-          }
-        })
-        cart.products = updatedProducts
+        this.carts[cartIndex].products[productIndex].quantity++
       } else {
-        // Add new product to cart
         const product = {
           id: productId,
           quantity: 1
         }
-        cart.products.push(product)
+        this.carts[cartIndex].products.push(product)
       }
-
-      const updatedCarts = this.carts.map((element, index) => {
-        if (index === cartIndex) {
-          return {
-            id: element.id,
-            products: cart.products
-          }
-        } else {
-          return element
-        }
-      })
-
-      this.carts = updatedCarts
       // Write on file
       await fs.promises.writeFile(this.path, JSON.stringify(this.carts), 'utf-8')
 

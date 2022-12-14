@@ -68,23 +68,14 @@ export class ProductManager {
 
   async updateProduct(productId, updatedProduct) {
     try {
-      this.#readProducts
+      this.#readProducts()
       // Find index of product
       const foundedIndex = this.products.findIndex((product) => product.id === productId)
       // If product id exist
       if (foundedIndex !== -1) {
         // Update data
-        const updatedProducts = this.products.map((product, index) => {
-          if (index === foundedIndex) {
-            return {
-              id: product.id,
-              ...updatedProduct
-            }
-          } else {
-            return product
-          }
-        })
-        this.products = updatedProducts
+        this.products[foundedIndex] = {id: productId, ...updatedProduct}
+
         // Write on file
         await fs.promises.writeFile(this.path, JSON.stringify(this.products), 'utf-8')
       } else {
