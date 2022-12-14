@@ -26,5 +26,19 @@
       "./imgs/img-2.jpg",
       "./imgs/img-2-2.jpg"
     ]
+  },
+  {
+    "id": 3,
+    "title": "Test product from postman",
+    "description": "Producto de prueba",
+    "code": "KK90LK7",
+    "price": 300,
+    "status": true,
+    "stock": 30,
+    "category": "Test-3",
+    "thumbnails": [
+      "./imgs/img-3.jpg",
+      "./imgs/img-3-2.jpg"
+    ]
   }
 ]

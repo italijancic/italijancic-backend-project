@@ -58,9 +58,8 @@ export class ProductManager {
       const foundedProduct = this.products.find((product) => product.id === productId)
       if (foundedProduct) {
         return foundedProduct
-      }
-      else {
-        throw new Error('Bad or missing product ID. Product not found')
+      } else {
+        throw new Error('Bad or missing product Id. Product not found')
       }
     } catch (error) {
       throw new Error(error.message)
@@ -73,7 +72,7 @@ export class ProductManager {
       // Find index of product
       const foundedIndex = this.products.findIndex((product) => product.id === productId)
       // If product id exist
-      if (foundedIndex != undefined) {
+      if (foundedIndex !== -1) {
         // Update data
         const updatedProducts = this.products.map((product, index) => {
           if (index === foundedIndex) {
