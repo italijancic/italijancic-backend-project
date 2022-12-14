@@ -77,7 +77,10 @@ export class ProductManager {
         // Update data
         const updatedProducts = this.products.map((product, index) => {
           if (index === foundedIndex) {
-            return updatedProduct
+            return {
+              id: product.id,
+              ...updatedProduct
+            }
           } else {
             return product
           }

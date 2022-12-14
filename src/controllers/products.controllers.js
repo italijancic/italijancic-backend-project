@@ -78,6 +78,28 @@ export const postProduct = async (req, res) => {
   }
 }
 
+export const updateProduct = async (req, res) => {
+  try {
+
+    const pid = req.params.pid
+    const updatedProduct = req.body
+
+    await productManager.updateProduct(Number(pid), updatedProduct)
+
+    res.status(200).json({
+      success: true,
+      message: `Product Id = ${req.params.pid} successfully updated`,
+      updatedProduct: updatedProduct
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
 export const deleteProductById = async (req, res) => {
   try {
 

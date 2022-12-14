@@ -1,1 +1,30 @@
-[{"id":2,"title":"Test product from postman","description":"Producto de prueba","code":"LK98KL7","price":200,"status":true,"stock":20,"category":"Test-20","thumbnails":["./imgs/img-2.jpg","./imgs/img-2-1.jpg"]},{"id":3,"title":"Test product from postman","description":"Producto de prueba","code":"IE24T90","price":100,"status":true,"stock":10,"category":"Test-10","thumbnails":["./imgs/img-1.jpg","./imgs/img-1-2.jpg"]}]
+[
+  {
+    "id": 1,
+    "title": "Test product from postman",
+    "description": "Producto de prueba",
+    "code": "IE24T90",
+    "price": 24,
+    "status": true,
+    "stock": 10,
+    "category": "Test-10",
+    "thumbnails": [
+      "./imgs/img-1.jpg",
+      "./imgs/img-1-2.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Test product from postman",
+    "description": "Producto de prueba",
+    "code": "IE24T90",
+    "price": 200,
+    "status": true,
+    "stock": 20,
+    "category": "Test-2",
+    "thumbnails": [
+      "./imgs/img-2.jpg",
+      "./imgs/img-2-2.jpg"
+    ]
+  }
+]
