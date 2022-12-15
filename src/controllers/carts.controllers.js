@@ -55,7 +55,7 @@ export const getProductsByCartId = async (req, res) => {
     const products = []
 
     for await (const element of cart.products) {
-      product = await productManager.getproductById(element.id)
+      product = await productManager.getproductById(element.product)
       products.push(product)
     }
 

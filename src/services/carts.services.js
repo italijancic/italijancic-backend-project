@@ -29,12 +29,12 @@ export class CartManager {
       const cart = await this.getCartById(cartId)
       const cartIndex = this.carts.findIndex((cart) => cart.id === cartId)
       // Che if product allready exist
-      const productIndex = cart.products.findIndex((product) => product.id === productId)
+      const productIndex = cart.products.findIndex((element) => element.product === productId)
       if (productIndex !== -1) {
         this.carts[cartIndex].products[productIndex].quantity++
       } else {
         const product = {
-          id: productId,
+          product: productId,
           quantity: 1
         }
         this.carts[cartIndex].products.push(product)
