@@ -49,7 +49,7 @@ export const getProductsByCartId = async (req, res) => {
   try {
     const cid = Number(req.params.cid)
 
-    const cart = cartManager.getCartById(cid)
+    const cart = await cartManager.getCartById(cid)
 
     let product = {}
     const products = []

@@ -18,7 +18,7 @@
     "title": "Test product from postman",
     "description": "Producto de prueba",
     "code": "IE24T90",
-    "price": 224,
+    "price": 78,
     "status": true,
     "stock": 20,
     "category": "Test-2",
@@ -39,6 +39,20 @@
     "thumbnails": [
       "./imgs/img-3.jpg",
       "./imgs/img-3-2.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Test product from postman",
+    "description": "Producto de prueba",
+    "code": "CR86D35",
+    "price": 400,
+    "status": true,
+    "stock": 40,
+    "category": "Test-4",
+    "thumbnails": [
+      "./imgs/img-4.jpg",
+      "./imgs/img-4-2.jpg"
     ]
   }
 ]
