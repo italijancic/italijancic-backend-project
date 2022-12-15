@@ -41,7 +41,7 @@ export const getproductById = async (req, res) => {
       const foundedProduct = await productManager.getproductById(Number(pid))
       res.status(200).json({
         success: true,
-        pid: foundedProduct
+        product: foundedProduct
       })
     } else {
       res.status(400).json({

@@ -8,7 +8,7 @@ const router = Router()
 // Products API
 router.use('/api/products', productsRoutes)
 
-// Cart API
+// Carts API
 router.use('/api/carts', cartsRoutes)
 
 export default router

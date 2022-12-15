@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BackURL}}/api/products?limit=1",
+					"raw": "{{BackURL}}/api/products",
 					"host": [
 						"{{BackURL}}"
 					],
@@ -23,7 +23,8 @@
 					"query": [
 						{
 							"key": "limit",
-							"value": "1"
+							"value": "1",
+							"disabled": true
 						}
 					]
 				}
@@ -48,7 +49,7 @@
 					"variable": [
 						{
 							"key": "pid",
-							"value": "1"
+							"value": "2"
 						}
 					]
 				}
@@ -62,7 +63,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Test product from postman\",\n    \"description\": \"Producto de prueba\",\n    \"code\": \"KK90LK7\",\n    \"price\": 300,\n    \"status\": true,\n    \"stock\": 30,\n    \"category\": \"Test-3\",\n    \"thumbnails\": [\"./imgs/img-3.jpg\", \"./imgs/img-3-2.jpg\"]\n}",
+					"raw": "{\n    \"title\": \"Test product from postman\",\n    \"description\": \"Producto de prueba\",\n    \"code\": \"CR86D35\",\n    \"price\": 400,\n    \"status\": true,\n    \"stock\": 40,\n    \"category\": \"Test-4\",\n    \"thumbnails\": [\"./imgs/img-4.jpg\", \"./imgs/img-4-2.jpg\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -100,7 +101,7 @@
 					"variable": [
 						{
 							"key": "pid",
-							"value": "1"
+							"value": "4"
 						}
 					]
 				}
@@ -114,7 +115,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 2,\n    \"title\": \"Test product from postman\",\n    \"description\": \"Producto de prueba\",\n    \"code\": \"IE24T90\",\n    \"price\": 224,\n    \"status\": true,\n    \"stock\": 20,\n    \"category\": \"Test-2\",\n    \"thumbnails\": [\n      \"./imgs/img-2.jpg\",\n      \"./imgs/img-2-2.jpg\"\n    ]\n}",
+					"raw": "{\n    \"title\": \"Test product from postman\",\n    \"description\": \"Producto de prueba\",\n    \"code\": \"CR86D35\",\n    \"price\": 1400,\n    \"status\": true,\n    \"stock\": 40,\n    \"category\": \"Test-4\",\n    \"thumbnails\": [\"./imgs/img-4.jpg\", \"./imgs/img-4-2.jpg\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -134,7 +135,7 @@
 					"variable": [
 						{
 							"key": "pid",
-							"value": "2"
+							"value": "4"
 						}
 					]
 				}
@@ -179,11 +180,36 @@
 					"variable": [
 						{
 							"key": "cid",
-							"value": "1"
+							"value": "5"
 						},
 						{
 							"key": "pid",
-							"value": "2"
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products by Cart Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BackURL}}/api/carts/:cid",
+					"host": [
+						"{{BackURL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						":cid"
+					],
+					"variable": [
+						{
+							"key": "cid",
+							"value": "5"
 						}
 					]
 				}
