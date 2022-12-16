@@ -17,7 +17,7 @@
     "id": 2,
     "title": "Test product from postman",
     "description": "Producto de prueba",
-    "code": "IE24T90",
+    "code": "IE24T92",
     "price": 78,
     "status": true,
     "stock": 20,
