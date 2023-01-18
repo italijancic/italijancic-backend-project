@@ -1,5 +1,5 @@
-import cartManager from '../services/carts.fs.services.js'
-import productManager from '../services/products.fs.services.js'
+import cartManagerFs from '../services/carts.fs.services.js'
+import productManagerFs from '../services/products.fs.services.js'
 
 // const productManager = new ProductManager('./src/store/products.json')
 // const cartManager = new CartManager('./src/store/carts.json')
@@ -7,7 +7,7 @@ import productManager from '../services/products.fs.services.js'
 export const postCart = async (req, res) => {
   try {
 
-    await cartManager.createNewCart()
+    await cartManagerFs.createNewCart()
 
     res.status(201).json({
       success: true,
@@ -29,8 +29,8 @@ export const addProductToCart = async (req, res) => {
     pid = Number(pid)
 
     // Check if product id exist
-    await productManager.getproductById(pid)
-    await cartManager.addProductToCart(cid, pid)
+    await productManagerFs.getproductById(pid)
+    await cartManagerFs.addProductToCart(cid, pid)
 
     res.status(201).json({
       success: true,
@@ -49,13 +49,13 @@ export const getProductsByCartId = async (req, res) => {
   try {
     const cid = Number(req.params.cid)
 
-    const cart = await cartManager.getCartById(cid)
+    const cart = await cartManagerFs.getCartById(cid)
 
     let product = {}
     const products = []
 
     for await (const element of cart.products) {
-      product = await productManager.getproductById(element.product)
+      product = await productManagerFs.getproductById(element.product)
       products.push(product)
     }
 

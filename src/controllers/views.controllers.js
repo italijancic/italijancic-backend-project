@@ -1,9 +1,9 @@
-import productManager from '../services/products.fs.services.js'
+import productManagerFs from '../services/products.fs.services.js'
 
 export const getHome = async (req, res) => {
   try {
 
-    const productsList = await productManager.getProducts()
+    const productsList = await productManagerFs.getProducts()
 
     res.render('index', {
       products: productsList
@@ -20,7 +20,7 @@ export const getHome = async (req, res) => {
 export const getRealTimeProducts = async (req, res) => {
   try {
 
-    const productsList = await productManager.getProducts()
+    const productsList = await productManagerFs.getProducts()
 
     res.render('realTimeProducts', {
       products: productsList
