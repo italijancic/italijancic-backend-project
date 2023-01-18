@@ -1,5 +1,5 @@
-import { CartManager } from '../services/carts.services.js'
-import { ProductManager } from '../services/products.services.js'
+import { CartManager } from '../services/carts.fs.services.js'
+import { ProductManager } from '../services/products.fs.services.js'
 
 const productManager = new ProductManager('./src/store/products.json')
 const cartManager = new CartManager('./src/store/carts.json')

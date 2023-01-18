@@ -1,4 +1,4 @@
-import { ProductManager } from '../services/products.services.js'
+import { ProductManager } from '../services/products.fs.services.js'
 
 const productManager = new ProductManager('./src/store/products.json')
 

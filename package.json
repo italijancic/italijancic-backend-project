@@ -12,7 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.4",
+    "mongoose-delete": "^0.5.4"
   },
   "devDependencies": {
     "eslint": "^8.29.0"
