@@ -1,6 +1,5 @@
 import fs from 'fs'
-
-export class ProductManager {
+class ProductManager {
 
   constructor(path) {
     this.products = []
@@ -157,3 +156,5 @@ export class ProductManager {
 
 }
 // End class
+const productManager = new ProductManager('./src/store/products.json')
+export default productManager

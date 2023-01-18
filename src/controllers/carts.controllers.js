@@ -1,8 +1,8 @@
-import { CartManager } from '../services/carts.fs.services.js'
-import { ProductManager } from '../services/products.fs.services.js'
+import cartManager from '../services/carts.fs.services.js'
+import productManager from '../services/products.fs.services.js'
 
-const productManager = new ProductManager('./src/store/products.json')
-const cartManager = new CartManager('./src/store/carts.json')
+// const productManager = new ProductManager('./src/store/products.json')
+// const cartManager = new CartManager('./src/store/carts.json')
 
 export const postCart = async (req, res) => {
   try {

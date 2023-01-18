@@ -1,6 +1,6 @@
-import { ProductManager } from '../services/products.fs.services.js'
+import productManager from '../services/products.fs.services.js'
 
-const productManager = new ProductManager('./src/store/products.json')
+// const productManager = new ProductManager('./src/store/products.json')
 
 export const getProducts = async (req, res) => {
   try {
@@ -64,6 +64,10 @@ export const postProduct = async (req, res) => {
 
     await productManager.addProduct(product)
 
+    // Send update over ws
+    const productsList = await productManager.getProducts()
+    req.io.emit('products', productsList)
+
     res.status(201).json({
       success: true,
       message: 'Product creation OK',
@@ -86,6 +90,10 @@ export const updateProduct = async (req, res) => {
 
     await productManager.updateProduct(Number(pid), updatedProduct)
 
+    // Send update over ws
+    const productsList = await productManager.getProducts()
+    req.io.emit('products', productsList)
+
     res.status(200).json({
       success: true,
       message: `Product Id = ${req.params.pid} successfully updated`,
@@ -104,6 +112,10 @@ export const deleteProductById = async (req, res) => {
   try {
 
     await productManager.deleteProduct(Number(req.params.pid))
+
+    // Send update over ws
+    const productsList = await productManager.getProducts()
+    req.io.emit('products', productsList)
 
     res.status(200).json({
       success: true,
