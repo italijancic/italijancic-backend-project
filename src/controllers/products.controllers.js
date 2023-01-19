@@ -1,4 +1,4 @@
-import productManagerFs from '../services/products.fs.services.js'
+// import productManagerFs from '../services/products.fs.services.js'
 import productManagerDB from '../services/products.mongo.services.js'
 
 export const getProducts = async (req, res) => {
@@ -64,14 +64,13 @@ export const postProduct = async (req, res) => {
     const product = req.body
 
     // Save on MongoDB
-    const createdProduct = await productManagerDB.createProduct(product)
-    console.log(createdProduct)
-    console.log(createdProduct._id)
+    await productManagerDB.createProduct(product)
     // Save on file
-    await productManagerFs.addProduct(createdProduct)
+    // await productManagerFs.addProduct(createdProduct)
 
     // Send update over ws
-    const productsList = await productManagerFs.getProducts()
+    // const productsList = await productManagerFs.getProducts()
+    const productsList = await productManagerDB.getProducts()
     req.io.emit('products', productsList)
 
     res.status(201).json({
@@ -92,12 +91,12 @@ export const updateProduct = async (req, res) => {
   try {
 
     const pid = req.params.pid
-    const updatedProduct = req.body
+    const data = req.body
 
-    await productManagerFs.updateProduct(Number(pid), updatedProduct)
+    const updatedProduct = await productManagerDB.updateProduct(pid, data)
 
     // Send update over ws
-    const productsList = await productManagerFs.getProducts()
+    const productsList = await productManagerDB.getProducts()
     req.io.emit('products', productsList)
 
     res.status(200).json({
@@ -118,16 +117,16 @@ export const deleteProductById = async (req, res) => {
   try {
 
     const { pid } = req.params
-    // Delete on file
-    await productManagerFs.deleteProduct(Number(pid))
     // Delete on DB
     await productManagerDB.deleteProduct(pid)
+    // Delete on file
+    // await productManagerFs.deleteProduct(Number(pid))
 
     // Send update over ws
     // const productsList = await productManagerFs.getProducts()
+
     // Get products from DB
     const productsList = await productManagerDB.getProducts()
-
     req.io.emit('products', productsList)
 
     res.status(200).json({

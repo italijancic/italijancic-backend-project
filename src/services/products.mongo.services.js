@@ -8,7 +8,6 @@ class ProductManagerDB {
     try {
 
       const products = await Product.find( { deleted: { $eq: false } }).lean()
-      console.log(`[products.mongo.services.js] - getProducts: ${products}`)
       return products
 
     } catch (error) {
@@ -22,7 +21,6 @@ class ProductManagerDB {
     try {
 
       console.log(productId)
-      // const product = await Product.find( { _id: productId, deleteAt: { $exists: true } })
       const product = await Product.findById(productId)
       return product
 
@@ -34,8 +32,14 @@ class ProductManagerDB {
   async createProduct(product) {
     try {
 
-      const createdProduct = await Product.create(product)
-      return createdProduct
+      // First calidate no repeat product code
+      const foundedProduct = await Product.findOne( { code: product.code } )
+      if (foundedProduct) {
+        throw new Error('Product code already exist')
+      } else {
+        const createdProduct = await Product.create(product)
+        return createdProduct
+      }
 
     } catch (error) {
       throw new Error(error.message)
