@@ -20,7 +20,8 @@ class ProductManagerFs {
       }
 
       const product = {
-        id: this.#getMaxId() + 1,
+        // id: this.#getMaxId() + 1,
+        id: newProduct._id,
         title: newProduct.title,
         description: newProduct.description,
         code: newProduct.code,

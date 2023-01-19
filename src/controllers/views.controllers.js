@@ -1,9 +1,13 @@
-import productManagerFs from '../services/products.fs.services.js'
+// import productManagerFs from '../services/products.fs.services.js'
+import productManagerDB from '../services/products.mongo.services.js'
 
 export const getHome = async (req, res) => {
   try {
 
-    const productsList = await productManagerFs.getProducts()
+    // Get products from file
+    // const productsList = await productManagerFs.getProducts()
+    // Get produts from DB
+    const productsList = await productManagerDB.getProducts()
 
     res.render('index', {
       products: productsList
@@ -20,7 +24,10 @@ export const getHome = async (req, res) => {
 export const getRealTimeProducts = async (req, res) => {
   try {
 
-    const productsList = await productManagerFs.getProducts()
+    // Get products from file
+    // const productsList = await productManagerFs.getProducts()
+    // Get produts from DB
+    const productsList = await productManagerDB.getProducts()
 
     res.render('realTimeProducts', {
       products: productsList
