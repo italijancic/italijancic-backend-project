@@ -42,10 +42,21 @@ socket.on('newUser', (newUser) => {
   })
 })
 
-// Send message event handler
-document.querySelector('#submit').addEventListener('click', (evt) => {
-  evt.preventDefault()
+const sendMessage = () => {
   const message = document.querySelector('#message').value.trim()
   document.querySelector('#message').value = ''
   socket.emit('message', { user: user, message: message })
+}
+
+// Send message on button click
+document.querySelector('#submit').addEventListener('click', (evt) => {
+  evt.preventDefault()
+  sendMessage()
+})
+
+// Send msg when enter key is pressed
+document.addEventListener('keypress', (evt) => {
+  if (evt.key === 'Enter') {
+    sendMessage()
+  }
 })
