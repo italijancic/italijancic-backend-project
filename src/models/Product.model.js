@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import mongooseDelete from 'mongoose-delete'
 
-
 const productSchema = new mongoose.Schema({
   title: {
     type: String,

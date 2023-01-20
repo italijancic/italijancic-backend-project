@@ -40,3 +40,16 @@ export const getRealTimeProducts = async (req, res) => {
     })
   }
 }
+
+export const getChat = async (req, res) => {
+  try {
+
+    res.render('chat', {})
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
