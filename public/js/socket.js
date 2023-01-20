@@ -11,7 +11,7 @@ const renderList = (productList) => {
   let list = ''
 
   productList.forEach((product) => {
-    list += `<li>id: ${product.id}</li>
+    list += `<li>id: ${product._id}</li>
             <ul>
               <li>title: ${product.title}</li>
               <li>description: ${product.description}</li>

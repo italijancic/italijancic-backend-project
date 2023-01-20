@@ -15,7 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Statics folder config
-app.use(express.static('src/public'))
+app.use(express.static('public/'))
 
 // Handlebars config
 app.engine('handlebars', engine())

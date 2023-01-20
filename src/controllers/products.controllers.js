@@ -64,7 +64,7 @@ export const postProduct = async (req, res) => {
     const product = req.body
 
     // Save on MongoDB
-    await productManagerDB.createProduct(product)
+    const savedProduct = await productManagerDB.createProduct(product)
     // Save on file
     // await productManagerFs.addProduct(createdProduct)
 
@@ -76,7 +76,7 @@ export const postProduct = async (req, res) => {
     res.status(201).json({
       success: true,
       message: 'Product creation OK',
-      product: product
+      product: savedProduct
     })
 
   } catch (error) {
