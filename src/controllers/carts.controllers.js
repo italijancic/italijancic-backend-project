@@ -1,16 +1,14 @@
 // import cartManagerFs from '../services/carts.fs.services.js'
 // import productManagerFs from '../services/products.fs.services.js'
-import cartManagerDB from '../services/carts.mongo.services.js'
-import productManagerDB from '../services/products.mongo.services.js'
 
-// const productManager = new ProductManager('./src/store/products.json')
-// const cartManager = new CartManager('./src/store/carts.json')
+import cartManagerDB from '../services/carts.mongo.services.js'
+// import productManagerDB from '../services/products.mongo.services.js'
 
 export const postCart = async (req, res) => {
   try {
 
-    // await cartManagerFs.createNewCart()
     const createdCart = await cartManagerDB.createCart()
+    // await cartManagerFs.createNewCart(createdCart)
 
     res.status(201).json({
       success: true,
@@ -50,20 +48,10 @@ export const getProductsByCartId = async (req, res) => {
   try {
     const cid = req.params.cid
 
-    // const cart = await cartManagerFs.getCartById(cid)
-    const cart = await cartManagerDB.getCartById(cid)
-
-    let product = {}
-    const products = []
-
-    for await (const element of cart.products) {
-      product = await productManagerDB.getProductById(element.product)
-      products.push(product)
-    }
+    const products = await cartManagerDB.getProductsByCartId(cid)
 
     res.status(200).json({
       success: true,
-      cartId: cid,
       products: products
     })
 
