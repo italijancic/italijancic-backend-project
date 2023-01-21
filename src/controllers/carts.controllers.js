@@ -47,7 +47,7 @@ export const getProductsByCartId = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      products: products
+      products
     })
 
   } catch (error) {
