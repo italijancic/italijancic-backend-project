@@ -122,10 +122,7 @@ export const deleteProductById = async (req, res) => {
     // Delete on file
     // await productManagerFs.deleteProduct(Number(pid))
 
-    // Send update over ws
-    // const productsList = await productManagerFs.getProducts()
-
-    // Get products from DB
+    // Get products from DB and send over ws
     const productsList = await productManagerDB.getProducts()
     req.io.emit('products', productsList)
 

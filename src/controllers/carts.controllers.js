@@ -1,14 +1,9 @@
-// import cartManagerFs from '../services/carts.fs.services.js'
-// import productManagerFs from '../services/products.fs.services.js'
-
 import cartManagerDB from '../services/carts.mongo.services.js'
-// import productManagerDB from '../services/products.mongo.services.js'
 
 export const postCart = async (req, res) => {
   try {
 
     const createdCart = await cartManagerDB.createCart()
-    // await cartManagerFs.createNewCart(createdCart)
 
     res.status(201).json({
       success: true,
