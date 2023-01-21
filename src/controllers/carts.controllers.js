@@ -1,5 +1,7 @@
-import cartManagerFs from '../services/carts.fs.services.js'
-import productManagerFs from '../services/products.fs.services.js'
+// import cartManagerFs from '../services/carts.fs.services.js'
+// import productManagerFs from '../services/products.fs.services.js'
+import cartManagerDB from '../services/carts.mongo.services.js'
+import productManagerDB from '../services/products.mongo.services.js'
 
 // const productManager = new ProductManager('./src/store/products.json')
 // const cartManager = new CartManager('./src/store/carts.json')
@@ -7,10 +9,12 @@ import productManagerFs from '../services/products.fs.services.js'
 export const postCart = async (req, res) => {
   try {
 
-    await cartManagerFs.createNewCart()
+    // await cartManagerFs.createNewCart()
+    const createdCart = await cartManagerDB.createCart()
 
     res.status(201).json({
       success: true,
+      createdCart: createdCart,
       message: 'Cart created OK'
     })
 
@@ -25,12 +29,9 @@ export const postCart = async (req, res) => {
 export const addProductToCart = async (req, res) => {
   try {
     let { cid, pid } = req.params
-    cid = Number(cid)
-    pid = Number(pid)
 
     // Check if product id exist
-    await productManagerFs.getproductById(pid)
-    await cartManagerFs.addProductToCart(cid, pid)
+    await cartManagerDB.addProductToCart(cid, pid)
 
     res.status(201).json({
       success: true,
@@ -47,15 +48,16 @@ export const addProductToCart = async (req, res) => {
 
 export const getProductsByCartId = async (req, res) => {
   try {
-    const cid = Number(req.params.cid)
+    const cid = req.params.cid
 
-    const cart = await cartManagerFs.getCartById(cid)
+    // const cart = await cartManagerFs.getCartById(cid)
+    const cart = await cartManagerDB.getCartById(cid)
 
     let product = {}
     const products = []
 
     for await (const element of cart.products) {
-      product = await productManagerFs.getproductById(element.product)
+      product = await productManagerDB.getproductById(element.product)
       products.push(product)
     }
 

@@ -7,14 +7,14 @@ class CartManagerFs {
     this.path = path
   }
 
-  async createNewCart() {
+  async createNewCart(cart) {
     try {
       await this.#readCarts()
-      const newCart = {
-        id: this.#getMaxId() + 1,
-        products: []
-      }
-      this.carts.push(newCart)
+      // const newCart = {
+      //   id: this.#getMaxId() + 1,
+      //   products: []
+      // }
+      this.carts.push(cart)
       // Write on file
       await fs.promises.writeFile(this.path, JSON.stringify(this.carts), 'utf-8')
 

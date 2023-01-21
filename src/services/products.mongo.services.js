@@ -20,7 +20,6 @@ class ProductManagerDB {
 
     try {
 
-      console.log(productId)
       const product = await Product.findById(productId)
       return product
 
@@ -61,7 +60,7 @@ class ProductManagerDB {
   async deleteProduct(productId) {
     try {
 
-      await Product.deleteMany( { _id: productId } )
+      await Product.delete( { _id: productId } )
 
     } catch (error) {
       throw new Error(error.message)
