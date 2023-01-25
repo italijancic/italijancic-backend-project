@@ -1,32 +1,20 @@
-// import productManagerFs from '../services/products.fs.services.js'
+import { STATUS } from '../constants/constants.js'
 import productManagerDB from '../services/products.mongo.services.js'
 
 export const getProducts = async (req, res) => {
   try {
-    const { limit } = req.query
 
-    // const products = await productManagerFs.getProducts()
-    const products = await productManagerDB.getProducts()
+    const { products, metadata } = await productManagerDB.getProducts(req.query)
 
-    if (!isNaN(limit)) {
-      res.status(200).json({
-        success: true,
-        limit: products.slice(0, Number(limit))
-      })
-    } else if (limit && isNaN(limit)) {
-      res.status(400).json({
-        success: false,
-        message: 'Limit is must be a number'
-      })
-    } else {
-      res.status(200).json({
-        success: true,
-        products: products
-      })
-    }
+    res.status(200).json({
+      status: STATUS.SUCCESS,
+      payload: products,
+      ...metadata
+    })
+
   } catch (error) {
     res.status(500).json({
-      success: false,
+      status: STATUS.FAIL,
       message: error.message
     })
   }
@@ -53,7 +41,7 @@ export const getproductById = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
-      success: false,
+      status: STATUS.FAIL,
       message: error.message
     })
   }
@@ -81,7 +69,7 @@ export const postProduct = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
-      success: false,
+      status: STATUS.FAIL,
       message: error.message
     })
   }
@@ -107,7 +95,7 @@ export const updateProduct = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
-      success: false,
+      status: STATUS.FAIL,
       message: error.message
     })
   }
@@ -133,7 +121,7 @@ export const deleteProductById = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
-      success: false,
+      status: STATUS.FAIL,
       message: error.message
     })
   }

@@ -1,14 +1,30 @@
+import _ from 'lodash'
 import Product from '../models/Product.model.js'
 
 class ProductManagerDB {
   constructor(){}
 
-  async getProducts() {
+  async getProducts(params) {
 
     try {
 
-      const products = await Product.find( { deleted: { $eq: false } }).lean()
-      return products
+      let result = []
+
+      if( !_.isEmpty(params) ) {
+        const { limit, page, sort, query } = params
+        if (query) {
+          result = await Product.paginate( {query,  deleted: { $eq: false } } , {limit: limit, page: page, sort: sort, lean: true})
+        } else {
+          result = await Product.paginate({ deleted: { $eq: false } }, {limit: limit, page: page, sort: sort, lean: true})
+        }
+      } else {
+        result = await Product.paginate({ deleted: { $eq: false } }, {pagination: false, lean: true})
+      }
+
+      return {
+        products: result.docs,
+        metadata: _.omit(result, ['docs'])
+      }
 
     } catch (error) {
       throw new Error(error.message)

@@ -7,7 +7,7 @@ export const getHome = async (req, res) => {
     // Get products from file
     // const productsList = await productManagerFs.getProducts()
     // Get produts from DB
-    const productsList = await productManagerDB.getProducts()
+    const productsList = (await productManagerDB.getProducts()).products
 
     res.render('index', {
       products: productsList
@@ -15,7 +15,7 @@ export const getHome = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
-      success: false,
+      status: false,
       message: error.message
     })
   }
