@@ -1,11 +1,8 @@
-// import productManagerFs from '../services/products.fs.services.js'
 import productManagerDB from '../services/products.mongo.services.js'
 
 export const getHome = async (req, res) => {
   try {
 
-    // Get products from file
-    // const productsList = await productManagerFs.getProducts()
     // Get produts from DB
     const productsList = (await productManagerDB.getProducts()).products
 
@@ -24,10 +21,8 @@ export const getHome = async (req, res) => {
 export const getRealTimeProducts = async (req, res) => {
   try {
 
-    // Get products from file
-    // const productsList = await productManagerFs.getProducts()
     // Get produts from DB
-    const productsList = await productManagerDB.getProducts()
+    const productsList = (await productManagerDB.getProducts()).products
 
     res.render('realTimeProducts', {
       products: productsList
