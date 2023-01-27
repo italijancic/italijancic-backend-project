@@ -13,9 +13,9 @@ class ProductManagerDB {
       if( !_.isEmpty(params) ) {
         const { limit, page, sort, query } = params
         if (query) {
-          result = await Product.paginate( {query,  deleted: { $eq: false } } , {limit: limit, page: page, sort: sort, lean: true})
+          result = await Product.paginate( {query,  deleted: { $eq: false } } , {limit: limit, page: page, sort: [['price', sort]], lean: true})
         } else {
-          result = await Product.paginate({ deleted: { $eq: false } }, {limit: limit, page: page, sort: sort, lean: true})
+          result = await Product.paginate({ deleted: { $eq: false } }, {limit: limit, page: page, sort: [['price', sort]], lean: true})
         }
       } else {
         result = await Product.paginate({ deleted: { $eq: false } }, {pagination: false, lean: true})
