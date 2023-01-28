@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "f792acca-2091-4797-b499-a99b3dd69e47",
-		"name": "1ra Entrega",
+		"name": "project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21958330"
 	},
@@ -12,9 +12,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BackURL}}/api/products",
+					"raw": "{{LocalBackURL}}/api/products?limit=5&page=1&sort=desc&query={\"category\": \"Test-3\"}",
 					"host": [
-						"{{BackURL}}"
+						"{{LocalBackURL}}"
 					],
 					"path": [
 						"api",
@@ -23,8 +23,24 @@
 					"query": [
 						{
 							"key": "limit",
-							"value": "1",
+							"value": "5"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "sort",
+							"value": "desc"
+						},
+						{
+							"key": "query",
+							"value": "{\"status\":  true}",
 							"disabled": true
+						},
+						{
+							"key": "query",
+							"value": "{\"category\": \"Test-3\"}"
 						}
 					]
 				}
@@ -37,19 +53,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BackURL}}/api/products/:pid",
+					"raw": "{{LocalBackURL}}/api/products/:id",
 					"host": [
-						"{{BackURL}}"
+						"{{LocalBackURL}}"
 					],
 					"path": [
 						"api",
 						"products",
-						":pid"
+						":id"
 					],
 					"variable": [
 						{
-							"key": "pid",
-							"value": "4"
+							"key": "id",
+							"value": "63d1acde9e18bea744ed5394"
 						}
 					]
 				}
@@ -63,7 +79,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Test product from postman\",\n    \"description\": \"Producto de prueba\",\n    \"code\": \"CR86D35\",\n    \"price\": 400,\n    \"status\": true,\n    \"stock\": 40,\n    \"category\": \"Test-4\",\n    \"thumbnails\": [\"./imgs/img-4.jpg\", \"./imgs/img-4-2.jpg\"]\n}",
+					"raw": "{\n    \"title\": \"Test product from postman\",\n    \"description\": \"Producto de prueba\",\n    \"code\": \"KSDF87JKL\",\n    \"price\": 300,\n    \"status\": true,\n    \"stock\": 30,\n    \"category\": \"Test-3\",\n    \"thumbnails\": [\"./imgs/img-3.jpg\", \"./imgs/img-3-2.jpg\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -71,9 +87,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BackURL}}/api/products",
+					"raw": "{{LocalBackURL}}/api/products",
 					"host": [
-						"{{BackURL}}"
+						"{{LocalBackURL}}"
 					],
 					"path": [
 						"api",
@@ -88,10 +104,19 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{BackURL}}/api/products/:pid",
+					"raw": "{{LocalBackURL}}/api/products/:pid",
 					"host": [
-						"{{BackURL}}"
+						"{{LocalBackURL}}"
 					],
 					"path": [
 						"api",
@@ -101,7 +126,7 @@
 					"variable": [
 						{
 							"key": "pid",
-							"value": "4"
+							"value": "63c9db6a491245d775b2d2bb"
 						}
 					]
 				}
@@ -115,7 +140,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Test product from postman\",\n    \"description\": \"Producto de prueba\",\n    \"code\": \"CR86D35\",\n    \"price\": 1400,\n    \"status\": true,\n    \"stock\": 40,\n    \"category\": \"Test-4\",\n    \"thumbnails\": [\"./imgs/img-4.jpg\", \"./imgs/img-4-2.jpg\"]\n}",
+					"raw": "{\n    \"title\": \"Test product from postman\",\n    \"description\": \"Producto de prueba\",\n    \"code\": \"CR86D35\",\n    \"price\": 400,\n    \"status\": true,\n    \"stock\": 40,\n    \"category\": \"Test-4\",\n    \"thumbnails\": [\"./imgs/img-4.jpg\", \"./imgs/img-4-2.jpg\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -123,9 +148,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BackURL}}/api/products/:pid",
+					"raw": "{{koyebBackURL}}/api/products/:pid",
 					"host": [
-						"{{BackURL}}"
+						"{{koyebBackURL}}"
 					],
 					"path": [
 						"api",
@@ -148,9 +173,9 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{BackURL}}/api/carts",
+					"raw": "{{LocalBackURL}}/api/carts",
 					"host": [
-						"{{BackURL}}"
+						"{{LocalBackURL}}"
 					],
 					"path": [
 						"api",
@@ -163,12 +188,21 @@
 		{
 			"name": "Add product to cart",
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"quantity\": 4\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{BackURL}}/api/carts/:cid/product/:pid",
+					"raw": "{{LocalBackURL}}/api/carts/:cid/product/:pid",
 					"host": [
-						"{{BackURL}}"
+						"{{LocalBackURL}}"
 					],
 					"path": [
 						"api",
@@ -180,11 +214,45 @@
 					"variable": [
 						{
 							"key": "cid",
-							"value": "1"
+							"value": "63d5732ee0de0445ad3eb50f"
 						},
 						{
 							"key": "pid",
-							"value": "1"
+							"value": "63c9d334a89db3eb82e330ec"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add products to cart",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"items\": [\n    {\n      \"product\": \"63c9d316a89db3eb82e330e8\",\n      \"quantity\": 3\n    },\n    {\n      \"product\": \"63c9d326a89db3eb82e330ea\",\n      \"quantity\": 2\n    },\n    {\n      \"product\": \"63c9d334a89db3eb82e330ec\",\n      \"quantity\": 2\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LocalBackURL}}/api/carts/:cid",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						":cid"
+					],
+					"variable": [
+						{
+							"key": "cid",
+							"value": "63d5732ee0de0445ad3eb50f"
 						}
 					]
 				}
@@ -197,9 +265,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BackURL}}/api/carts/:cid",
+					"raw": "{{LocalBackURL}}/api/carts/:cid",
 					"host": [
-						"{{BackURL}}"
+						"{{LocalBackURL}}"
 					],
 					"path": [
 						"api",
@@ -209,7 +277,38 @@
 					"variable": [
 						{
 							"key": "cid",
-							"value": "1"
+							"value": "63cc3e8d2c65e040768e2e1c"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product to cart",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{LocalBackURL}}/api/carts/:cid/product/:pid",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						":cid",
+						"product",
+						":pid"
+					],
+					"variable": [
+						{
+							"key": "cid",
+							"value": "63d5732ee0de0445ad3eb50f"
+						},
+						{
+							"key": "pid",
+							"value": "63c9d334a89db3eb82e330ec"
 						}
 					]
 				}
