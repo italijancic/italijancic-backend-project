@@ -56,7 +56,7 @@ class CartManagerDB{
       const foundedCart = await Cart.findById(cartId)
 
       if (foundedCart) {
-      // Logic to handle products on cart
+        // Logic to handle products on cart
         let updatedCart = await Cart.findOneAndUpdate( { _id: cartId, 'items.product': productId }, { $inc: {'items.$.quantity': quantity} }, { new: true } )
 
         if (!updatedCart) {
@@ -70,6 +70,35 @@ class CartManagerDB{
 
     } catch (error) {
       throw new Error(error.message)
+    }
+  }
+
+  async addProductsToCart(cartId, items){
+    try {
+
+      let updatedCart = {}
+
+      // Check if cart exist
+      const foundedCart = await Cart.findById(cartId)
+
+      if (foundedCart) {
+
+        for await (const item of items) {
+          // Logic to handle products on cart
+          updatedCart = await Cart.findOneAndUpdate({ _id: cartId, 'items.product': item.product }, { $inc: { 'items.$.quantity': item.quantity } }, { new: true })
+
+          if (!updatedCart) {
+            updatedCart = await Cart.findOneAndUpdate({ _id: cartId }, { $push: { items: { product: item.product, quantity: item.quantity } } }, { new: true })
+          }
+        }
+
+        return updatedCart
+
+      } else {
+        throw new Error('Bad or missing cart Id')
+      }
+    } catch (error) {
+      throw new Error('Error adding products to cart')
     }
   }
 

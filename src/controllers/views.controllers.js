@@ -1,3 +1,4 @@
+import { STATUS } from '../constants/constants.js'
 import productManagerDB from '../services/products.mongo.services.js'
 
 export const getHome = async (req, res) => {
@@ -12,7 +13,7 @@ export const getHome = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
-      success: false,
+      success: STATUS.FAIL,
       message: error.message
     })
   }
@@ -30,7 +31,7 @@ export const getProducts = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
-      status: false,
+      success: STATUS.FAIL,
       message: error.message
     })
   }
@@ -48,7 +49,7 @@ export const getRealTimeProducts = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
-      success: false,
+      success: STATUS.FAIL,
       message: error.message
     })
   }
@@ -61,7 +62,7 @@ export const getChat = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
-      success: false,
+      success: STATUS.FAIL,
       message: error.message
     })
   }

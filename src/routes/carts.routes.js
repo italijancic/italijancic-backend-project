@@ -6,7 +6,7 @@ const router = Router()
 
 router.post('/', carts.postCart)
 
-// router.put('/:cid', carts.addProductsToCart)
+router.put('/:cid', carts.addProductsToCart)
 
 router.put('/:cid/product/:pid', carts.addProductToCart)
 

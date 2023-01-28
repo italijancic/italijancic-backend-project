@@ -21,7 +21,6 @@ class ProductManagerDB {
         result = await Product.paginate({ deleted: { $eq: false } }, {pagination: false, lean: true})
       }
 
-      // console.log(result)
       return {
         products: result.docs,
         metadata: _.omit(result, ['docs'])

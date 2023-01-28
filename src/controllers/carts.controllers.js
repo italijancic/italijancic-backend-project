@@ -47,6 +47,34 @@ export const addProductToCart = async (req, res) => {
   }
 }
 
+export const addProductsToCart = async (req, res) => {
+  try {
+    let { cid } = req.params
+    let { items } = req.body
+
+    if (items && cid) {
+      const updatedCart = await cartManagerDB.addProductsToCart(cid, items)
+
+      res.status(201).json({
+        success: STATUS.SUCCESS,
+        message: 'Product added to cart OK',
+        updatedCart: updatedCart
+      })
+
+    } else {
+      res.status(401).json({
+        success: STATUS.FAIL,
+        message: 'bad or missing request params'
+      })
+    }
+
+  } catch (error) {
+    res.status(500).json({
+      success: STATUS.FAIL,
+      message: error.message
+    })
+  }
+}
 
 export const deleteProductToCart = async (req, res) => {
   try {
