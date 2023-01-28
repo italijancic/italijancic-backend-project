@@ -3,7 +3,7 @@ import MongooseDelete from 'mongoose-delete'
 
 const cartItemSchema = new Schema({
   product: { type: Schema.Types.ObjectId, ref: 'Products', required: true },
-  quantity: { type: Number, min: 0, required: true }
+  quantity: { type: Number, required: true }
 },{ _id: false })
 
 const cartSchema = new Schema({
