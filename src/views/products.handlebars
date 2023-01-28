@@ -15,3 +15,14 @@
     </ul>
   {{/each}}
 </ul>
+
+{{#if metadata.prevPage}}
+  <a href='/products/?page={{metadata.prevPage}}'> Before </a>
+{{/if}}
+
+{{metadata.page}}
+
+{{#if metadata.nextPage}}
+  <a href='/products/?page={{metadata.nextPage}}'> Next </a>
+{{/if}}
+

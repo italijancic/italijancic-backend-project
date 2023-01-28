@@ -12,6 +12,24 @@ export const getHome = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
+export const getProducts = async (req, res) => {
+  try {
+
+    const { page } = req.query
+
+    // Get produts from DB
+    const data = await productManagerDB.getProducts( { limit: 2, page: page === undefined ? 1 : page, sort: 'asc', query: null })
+
+    res.render('products', {...data})
+
+  } catch (error) {
+    res.status(500).json({
       status: false,
       message: error.message
     })

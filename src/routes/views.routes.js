@@ -6,6 +6,8 @@ const router = Router()
 
 router.get('/', views.getHome)
 
+router.get('/products', views.getProducts)
+
 router.get('/chat', views.getChat)
 
 router.get('/realtimeproducts', views.getRealTimeProducts)
