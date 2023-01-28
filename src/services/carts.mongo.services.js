@@ -108,12 +108,26 @@ class CartManagerDB{
 
       // Check if cart exist
       const foundedCart = await Cart.findById(cartId)
+      const foundedProduct = await Cart.findOne({ _id: cartId, 'items.product': productId })
 
       if (foundedCart) {
-        // Logic to handle delete product from cart
-        let updatedCart = await Cart.findOneAndUpdate( { _id: cartId, 'items.product': productId }, { $inc: {'items.$.quantity': -1} }, { new: true } )
+        if (foundedProduct) {
 
-        return updatedCart
+          // Logic to handle delete product from cart
+          await Cart.findOneAndUpdate({ _id: cartId, 'items.product': productId }, { $inc: { 'items.$.quantity': -1 } })
+          // Delete product if quantity is equal to zero
+          let updatedCart = await Cart.findOneAndUpdate({ _id: cartId, 'items.product': productId }, { $pull: { items: { product: productId, quantity: 0 } } }, { new: true })
+
+          if (updatedCart === null) {
+            const currentCart = await Cart.findById(cartId)
+            return currentCart
+          } else {
+            return updatedCart
+          }
+
+        } else {
+          throw new Error('Bad or missing productId')
+        }
 
       } else {
         throw new Error('Bad or missing cartId')
