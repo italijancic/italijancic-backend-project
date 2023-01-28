@@ -1,5 +1,6 @@
 import { STATUS } from '../constants/constants.js'
 import productManagerDB from '../services/products.mongo.services.js'
+import cartsManagerDB from '../services/carts.mongo.services.js'
 
 export const getHome = async (req, res) => {
   try {
@@ -45,6 +46,24 @@ export const getRealTimeProducts = async (req, res) => {
 
     res.render('realTimeProducts', {
       products: productsList
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      success: STATUS.FAIL,
+      message: error.message
+    })
+  }
+}
+
+export const getCart = async (req, res) => {
+  try {
+    const { cid } = req.params
+
+    const cart = await cartsManagerDB.getCartById(cid)
+
+    res.render('carts', {
+      ...cart
     })
 
   } catch (error) {

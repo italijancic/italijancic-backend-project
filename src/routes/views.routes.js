@@ -8,8 +8,10 @@ router.get('/', views.getHome)
 
 router.get('/products', views.getProducts)
 
-router.get('/chat', views.getChat)
+router.get('/cart/:cid', views.getCart)
 
 router.get('/realtimeproducts', views.getRealTimeProducts)
+
+router.get('/chat', views.getChat)
 
 export default router

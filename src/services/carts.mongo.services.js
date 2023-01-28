@@ -6,7 +6,7 @@ class CartManagerDB{
   async getCarts() {
     try {
 
-      const carts = await Cart.find({})
+      const carts = await Cart.find({}).lean()
       return carts
 
     } catch (error) {
@@ -17,7 +17,7 @@ class CartManagerDB{
   async getCartById(cartId) {
     try {
 
-      const cart = await Cart.findById(cartId)
+      const cart = await Cart.findById(cartId).lean()
       return cart
 
     } catch (error) {
