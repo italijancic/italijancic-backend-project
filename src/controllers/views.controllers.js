@@ -2,13 +2,29 @@ import { STATUS } from '../constants/constants.js'
 import productManagerDB from '../services/products.mongo.services.js'
 import cartsManagerDB from '../services/carts.mongo.services.js'
 
+export const login = async (req, res) => {
+  try {
+
+    res.render('login', {})
+
+  } catch (error) {
+    res.status(500).json({
+      success: STATUS.FAIL,
+      message: error.message
+    })
+  }
+}
+
 export const getHome = async (req, res) => {
   try {
 
     // Get produts from DB
     const productsList = (await productManagerDB.getProducts()).products
 
+    console.log(req.session.user)
+
     res.render('index', {
+      user: req.session.user,
       products: productsList
     })
 
