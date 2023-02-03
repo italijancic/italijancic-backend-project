@@ -15,13 +15,24 @@ export const login = async (req, res) => {
   }
 }
 
+export const register = async (req, res) => {
+  try {
+
+    res.render('register', {})
+
+  } catch (error) {
+    res.status(500).json({
+      success: STATUS.FAIL,
+      message: error.message
+    })
+  }
+}
+
 export const getHome = async (req, res) => {
   try {
 
     // Get produts from DB
     const productsList = (await productManagerDB.getProducts()).products
-
-    console.log(req.session.user)
 
     res.render('index', {
       user: req.session.user,

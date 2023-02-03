@@ -8,6 +8,8 @@ router.get('/', authMiddleware, views.getHome)
 
 router.get('/login', views.login)
 
+router.get('/register', views.register)
+
 router.get('/products', authMiddleware, views.getProducts)
 
 router.get('/cart/:cid', authMiddleware, views.getCart)

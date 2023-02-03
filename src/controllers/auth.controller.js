@@ -5,7 +5,6 @@ import * as authServices from '../services/auth.services.js'
 export const login = async (req, res) => {
   try {
 
-    console.log(req.body)
     const { email, password } = req.body
     const logged = await authServices.login(email, password)
 
@@ -35,10 +34,7 @@ export const logout = async (req, res) => {
       if (error) {
         res.json(error)
       } else {
-        res.status(200).json({
-          success: STATUS.SUCCESS,
-          message: 'Logout OK'
-        })
+        res.redirect('/login')
       }
     })
   } catch (error) {

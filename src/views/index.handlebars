@@ -1,6 +1,6 @@
 <h1>Products List</h1>
 
-<h2>Wellcome: {{user.firstName}} {{user.lastName}}</h2>
+<h2>Wellcome: {{user.firstName}} {{user.lastName}} (role: {{user.role}})</h2>
 
 <ul>
   {{#each products as |product|}}
@@ -17,3 +17,7 @@
     </ul>
   {{/each}}
 </ul>
+
+<form action="http://localhost:3000/api/auth/logout" method="get">
+  <button type="submit">Logout</button>
+</form>
