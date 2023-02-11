@@ -9,6 +9,8 @@ import cookie from 'cookie-parser'
 import session from 'express-session'
 import mongoStore from 'connect-mongo'
 
+import passport from './utils/passport.utils.js'
+
 import { webSocketInit } from './utils/websocket.js'
 
 import dbConnect from './configs/db.config.js'
@@ -54,6 +56,10 @@ app.use((req, res, next) => {
 
 // Connect to MongoDB
 dbConnect()
+
+// Passport config
+app.use(passport.initialize())
+app.use(passport.session())
 
 // HTTP Server routes
 app.use(routes)

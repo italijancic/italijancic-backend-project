@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt'
+
 import * as userServices from './users.services.js'
 
 export const login = async (email, password) => {
@@ -9,7 +11,10 @@ export const login = async (email, password) => {
       throw new Error('User does not exist')
     }
 
-    if ( password === user.password ) {
+    // Generate has from string password and compare with stored hash
+    const isValid = bcrypt.compareSync(password, user.password)
+
+    if ( isValid ) {
       return true
     } else {
       return false

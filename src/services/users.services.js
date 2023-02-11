@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt'
 import { User } from '../models/User.model.js'
 
 export const createUser = async (data) => {
@@ -7,6 +8,8 @@ export const createUser = async (data) => {
     if (foundedUser) {
       throw new Error('User Already exist')
     } else {
+      // password encrypt
+      data.password = bcrypt.hashSync(data.password, bcrypt.genSaltSync(10))
       const createdUser = await User.create(data)
       return createdUser
     }
@@ -22,5 +25,28 @@ export const getUser = async (email) => {
     return user
   } catch (error) {
     throw new Error('Error searching user')
+  }
+}
+
+export const updateUser = async (email, data, updatePassword=false) => {
+  try {
+    const user = await getUser(email)
+
+    if (user) {
+
+      if (data.password) {
+        if (updatePassword) {
+          data.password = bcrypt.hashSync(data.password, bcrypt.genSaltSync(10))
+        } else {
+          delete data.password
+        }
+      }
+
+      const updatedUser = await User.findOneAndUpdate({ email }, { ...data }, {new: true}).lean()
+      return updatedUser
+    }
+
+  } catch (error) {
+    throw new Error(error.message)
   }
 }
