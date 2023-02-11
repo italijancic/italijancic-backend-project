@@ -18,10 +18,9 @@ router.get('/fail', (req, res) => {
 router.post('/singup', passport.authenticate('singup', {
   failureRedirect: '/api/passportLocal/fail'
 }), (req, res) => {
-  res.status(201).json({
-    success: true,
-    user: req.user
-  })
+
+  res.redirect('/')
+
 })
 
 router.post('/login', passport.authenticate('login', {
@@ -32,10 +31,7 @@ router.post('/login', passport.authenticate('login', {
   req.session.logged = true
   req.session.user = req.user
 
-  res.status(201).json({
-    success: true,
-    message: 'User registered with passport local'
-  })
+  res.redirect('/')
 })
 
 export default router

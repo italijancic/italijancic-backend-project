@@ -1,6 +1,8 @@
-<h1>Login</h1>
+<h1>Login over GitHub</h1>
 
-<form action="http://localhost:3000/api/auth/login" method="post">
+{{!-- <form action="http://localhost:3000/api/auth/login" method="post"> --}}
+{{!-- <form action="http://localhost:3000/api/passportLocal/login" method="post"> --}}
+<form action="http://localhost:3000/api/github/login" method="get">
 
   <div>
     <label for="email">Email:</label>
@@ -8,11 +10,11 @@
     <input name="email" id="email" type="text" placeholder="user@email.com">
   </div>
   <br>
-  <div>
+  {{!-- <div>
     <label for="password">Password:</label>
     <br>
     <input name="password" id="password" type="password" placeholder="">
-  </div>
+  </div> --}}
   <br>
   <div>
     <button id="login">Login</button>
