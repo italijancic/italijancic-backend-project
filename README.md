@@ -1,11 +1,14 @@
-# 🚀 2da Entrega Proyecto Final
-## Primera entrega
+# 🚀 Desafio complementario
 Author: Ivan Talijancic
 
 # 📦 Contenido del repositorio
-En este repositorio se entrega el código correspondiente a la segunda entrega del proyecto final del curso de `BackEnd` de `Coderhouse`.
+Refactorización login
 
 ## 📋 Consignas
+- Implementación de estrategias de `passport`:
+  - Registro
+  - Login
 
+- Login desde la vista de login utilizando `passport-github2`
 
 ### ✅ Especificaciones
