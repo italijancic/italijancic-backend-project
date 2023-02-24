@@ -6,6 +6,9 @@ const router = Router()
 // Create user
 router.post('/', usersControllers.createUser)
 
+// Create user from UI
+router.post('/ui', usersControllers.createUser)
+
 // Update user
 router.put('/updateUser/:email', usersControllers.updateUser)
 

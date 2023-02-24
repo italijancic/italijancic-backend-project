@@ -35,7 +35,7 @@ passport.use('singup', new passportLocal.Strategy( { passReqToCallback: true, us
       return done(null, user)
     }
   } catch (error) {
-    throw new Error(error.message)
+    return done(error.message, false)
   }
 }))
 
@@ -51,7 +51,7 @@ passport.use('login', new passportLocal.Strategy( {passReqToCallback: true, user
       return done('Error on login', false)
     }
   } catch (error) {
-    throw new Error(error.message)
+    return done(error.message, false)
   }
 }))
 

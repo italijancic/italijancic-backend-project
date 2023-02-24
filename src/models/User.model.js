@@ -16,10 +16,20 @@ const userSchema = new Schema({
     required: true,
     unique: true
   },
+  age: {
+    type: Number,
+    required: true,
+    min: [1, 'Age must be grather than 1']
+  },
   password: {
     type: String,
     required: true,
     minLenght: 6
+  },
+  cartId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Carts',
+    required: true
   },
   role: {
     type: String,
