@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt'
 import { User } from '../models/User.model.js'
+import cartServices from '../services/carts.mongo.services.js'
 
 export const createUser = async (data) => {
   try {
@@ -8,9 +9,12 @@ export const createUser = async (data) => {
     if (foundedUser) {
       throw new Error('User Already exist')
     } else {
+      // Create a new cart for this new user
+      const createdCart = await cartServices.createCart()
+      const newUser = { ...data, cartId: createdCart._id }
       // password encrypt
-      data.password = bcrypt.hashSync(data.password, bcrypt.genSaltSync(10))
-      const createdUser = await User.create(data)
+      newUser.password = bcrypt.hashSync(newUser.password, bcrypt.genSaltSync(10))
+      const createdUser = await User.create(newUser)
       return createdUser
     }
 

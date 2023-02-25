@@ -12,7 +12,10 @@ export const login = async (req, res) => {
       req.session.logged = true
       req.session.user = await usersServices.getUser(email)
 
-      res.redirect('/')
+      res.status(200).json({
+        status: STATUS.SUCCESS,
+        message: 'User Login OK'
+      })
 
     } else {
       res.status(401).json({

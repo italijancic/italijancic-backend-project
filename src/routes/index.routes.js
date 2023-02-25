@@ -7,6 +7,7 @@ import usersRoutes from './users.routes.js'
 import authRoutes from './auth.routes.js'
 import passportLocalRoutes from './passportLocal.routes.js'
 import githubRoutes from './github.routes.js'
+import sessionRoutes from './sessions.routes.js'
 
 const router = Router()
 
@@ -18,6 +19,9 @@ router.use('/api/auth', authRoutes)
 
 // users API
 router.use('/api/users', usersRoutes)
+
+// Sessions API
+router.use('/api/sessions', sessionRoutes)
 
 // passportLocal api routes
 router.use('/api/passportLocal', passportLocalRoutes)

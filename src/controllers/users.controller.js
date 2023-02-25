@@ -4,9 +4,14 @@ import * as usersService from '../services/users.services.js'
 export const createUser = async (req, res) => {
   try {
     const data  = req.body
-    await usersService.createUser(data)
+    const createdUser = await usersService.createUser(data)
+    delete createdUser.password
 
-    res.redirect('/')
+    res.status(201).json({
+      success: STATUS.SUCCESS,
+      message: 'User created OK',
+      createdUser
+    })
 
   } catch (error) {
     res.status(500).json({

@@ -2,13 +2,12 @@ import passport from 'passport'
 import passportLocal  from 'passport-local'
 import passportGitHub  from 'passport-github2'
 
+import configs from '../configs/app.configs.js'
+
 import { User } from '../models/User.model.js'
 
 import * as userServices from '../services/users.services.js'
 import * as authServices from '../services/auth.services.js'
-
-import dotenv from 'dotenv'
-dotenv.config()
 
 // This two functions are allways required
 passport.serializeUser( function(user, done) {
@@ -35,7 +34,7 @@ passport.use('singup', new passportLocal.Strategy( { passReqToCallback: true, us
       return done(null, user)
     }
   } catch (error) {
-    throw new Error(error.message)
+    return done(error.message, false)
   }
 }))
 
@@ -51,13 +50,13 @@ passport.use('login', new passportLocal.Strategy( {passReqToCallback: true, user
       return done('Error on login', false)
     }
   } catch (error) {
-    throw new Error(error.message)
+    return done(error.message, false)
   }
 }))
 
 passport.use('github', new passportGitHub.Strategy({
-  clientID: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET,
+  clientID: configs.gitHub.clientId,
+  clientSecret: configs.gitHub.clientSecret,
   callbackURL: 'http://localhost:3000/api/github/callback'
 }, async (accessToken, refreshToken, profile, done) => {
   try {
@@ -81,8 +80,8 @@ passport.use('github', new passportGitHub.Strategy({
 }))
 
 passport.use('githubLogin', new passportGitHub.Strategy({
-  clientID: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET,
+  clientID: configs.gitHub.clientId,
+  clientSecret: configs.gitHub.clientSecret,
   callbackURL:'http://localhost:3000/api/github/callback'
 }, async (accessToken, refreshToken, profile, done) => {
   try {

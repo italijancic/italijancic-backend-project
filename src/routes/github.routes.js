@@ -20,11 +20,6 @@ router.get('/callback', passport.authenticate('githubLogin', {
 
   res.redirect('/')
 
-  // res.status(200).json({
-  //   success: true,
-  //   message: 'User register over github-passport strategy'
-  // })
-
 })
 
 export default router
