@@ -13,7 +13,7 @@ export const login = async (req, res) => {
       req.session.user = await usersServices.getUser(email)
 
       res.status(200).json({
-        satatus: STATUS.SUCCESS,
+        status: STATUS.SUCCESS,
         message: 'User Login OK'
       })
 
