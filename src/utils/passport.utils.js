@@ -9,9 +9,6 @@ import { User } from '../models/User.model.js'
 import * as userServices from '../services/users.services.js'
 import * as authServices from '../services/auth.services.js'
 
-import dotenv, { config } from 'dotenv'
-dotenv.config()
-
 // This two functions are allways required
 passport.serializeUser( function(user, done) {
   console.log('Serializing')
