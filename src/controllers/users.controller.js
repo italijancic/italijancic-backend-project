@@ -1,10 +1,10 @@
 import { STATUS } from '../constants/constants.js'
-import * as usersService from '../services/users.services.js'
+import factory from '../services/factory.js'
 
 export const createUser = async (req, res) => {
   try {
     const data  = req.body
-    const createdUser = await usersService.createUser(data)
+    const createdUser = await factory.users.createUser(data)
     delete createdUser.password
 
     res.status(201).json({
@@ -25,7 +25,7 @@ export const getUser = async (req, res) => {
   try {
     const { email } = req.query
 
-    const user = await usersService.getUser(email)
+    const user = await factory.users.getUser(email)
 
     delete user.password
 
@@ -47,7 +47,7 @@ export const updateUser = async (req, res) => {
     const { email } = req.params
     const { body } = req
 
-    const updatedUser = await usersService.updateUser(email, body, false)
+    const updatedUser = await factory.users.updateUser(email, body, false)
 
     delete updatedUser.password
 
@@ -70,7 +70,7 @@ export const updatePassword = async (req, res) => {
     const { email } = req.params
     const { body } = req
 
-    const updatedUser = await usersService.updateUser(email, body, true)
+    const updatedUser = await factory.users.updateUser(email, body, true)
 
     res.status(200).json({
       success: true,
