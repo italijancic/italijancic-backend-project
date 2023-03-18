@@ -18,6 +18,15 @@ class UserMongo {
     }
   }
 
+  async getUserByCartId(cartId) {
+    try {
+      const user = await this.user.findOne({ cartId: cartId }).lean()
+      return user
+    } catch (error) {
+      throw new Error('Error searching user')
+    }
+  }
+
   async createUser(data) {
     try {
       const foundedUser = await this.getUser(data.email)

@@ -119,12 +119,40 @@ export const getProductsByCartId = async (req, res) => {
 
 export const purchase = async (req, res) => {
   try {
-    // End buy process
 
+    let { cid } = req.params
+
+    let purchase = {
+      status: false,
+      purchaser: '',
+      amount: 0
+    }
+
+    const cart = await factory.carts.getCartById(cid)
+    const user = await factory.users.getUserByCartId(cid)
+    purchase.purchaser = user.email
+
+    for await (const item of cart.items) {
+      // Get product
+      const product = await factory.products.getProductById(item.product)
+      // Logic to check stock
+      if (item.quantity <= product.stock ) {
+        product.stock -= item.quantity
+        purchase.amount += product.price * item.quantity
+        purchase.status = true
+        // Update product stock
+        await factory.products.updateProduct(product.id, product)
+        // Delete product from cart
+        factory.carts.deleteProductToCart(cid, item.product)
+      }
+    }
+
+    const ticket = await factory.tickets.createTicket(purchase)
 
     res.status(200).json({
       success: STATUS.SUCCESS,
-      message: 'Purchase end OK'
+      message: 'Purchase end OK',
+      ticket
     })
 
   } catch (error) {

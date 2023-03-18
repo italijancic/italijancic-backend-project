@@ -15,6 +15,16 @@ export class UserRepository {
     }
   }
 
+  async getUserByCartId(cartId) {
+    try {
+      const user = await this.dao.getUserByCartId(cartId)
+      const userDTO = new UserDTO(user)
+      return userDTO
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
   async createUser(data) {
     try {
 

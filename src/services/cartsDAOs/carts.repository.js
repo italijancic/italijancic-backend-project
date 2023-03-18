@@ -19,7 +19,7 @@ export class CartRepository {
   async getCartById(cartId) {
     try {
 
-      const cart = await this.dao.getCartById(cartId).lean()
+      const cart = await this.dao.getCartById(cartId)
       const cartDTO = new CartDTO(cart)
       return cartDTO
 
@@ -80,7 +80,7 @@ export class CartRepository {
 
     try {
 
-      const updatedCart = await this.dao.deleteProductsToCart(cartId, productId)
+      const updatedCart = await this.dao.deleteProductToCart(cartId, productId)
       const cartDTO = new CartDTO(updatedCart)
       return cartDTO
 
@@ -98,4 +98,16 @@ export class CartRepository {
       throw new Error(error.message)
     }
   }
+
+  async purchase(cartId) {
+    try {
+
+      const purchaseInfo = await this.dao.purchase(cartId)
+      return purchaseInfo
+
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
 }

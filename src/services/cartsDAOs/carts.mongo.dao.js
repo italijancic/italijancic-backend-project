@@ -1,10 +1,8 @@
 import cartModel from '../../models/Cart.model.js'
-import productModel from '../../models/Product.model.js'
 
 class CartMongo {
-  constructor(cartModel, productModel){
+  constructor(cartModel) {
     this.cart = cartModel
-    this.product = productModel
   }
 
   async getCarts() {
@@ -151,6 +149,7 @@ class CartMongo {
       throw new Error(error.message)
     }
   }
+
 }
 
-export default new CartMongo(cartModel, productModel)
+export default new CartMongo(cartModel)
