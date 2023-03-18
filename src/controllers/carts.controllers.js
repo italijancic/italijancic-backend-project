@@ -5,7 +5,6 @@ export const postCart = async (req, res) => {
   try {
 
     const createdCart = await factory.carts.createCart()
-    // const createdCart = await cartManagerDB.createCart()
 
     res.status(201).json({
       success: STATUS.SUCCESS,
@@ -28,7 +27,6 @@ export const addProductToCart = async (req, res) => {
 
     if (quantity) {
       await factory.carts.addProductToCart(cid, pid, quantity)
-      // await cartManagerDB.addProductToCart(cid, pid, quantity)
     } else {
       res.status(401).json({
         success: STATUS.FAIL,
@@ -56,7 +54,6 @@ export const addProductsToCart = async (req, res) => {
 
     if (items && cid) {
       const updatedCart = await factory.carts.addProductsToCart(cid, items)
-      // const updatedCart = await cartManagerDB.addProductsToCart(cid, items)
 
       res.status(201).json({
         success: STATUS.SUCCESS,
@@ -85,7 +82,6 @@ export const deleteProductToCart = async (req, res) => {
 
     // Check if product id exist
     const updatedCart = await factory.carts.deleteProductToCart(cid, pid)
-    // const updatedCart = await cartManagerDB.deleteProductToCart(cid, pid)
 
     res.status(201).json({
       success: STATUS.SUCCESS,
@@ -106,11 +102,29 @@ export const getProductsByCartId = async (req, res) => {
     const cid = req.params.cid
 
     const products = await factory.carts.getProductsByCartId(cid)
-    // const products = await cartManagerDB.getProductsByCartId(cid)
 
     res.status(200).json({
       success: STATUS.SUCCESS,
       products
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      success: STATUS.FAIL,
+      message: error.message
+    })
+  }
+}
+
+
+export const purchase = async (req, res) => {
+  try {
+    // End buy process
+
+
+    res.status(200).json({
+      success: STATUS.SUCCESS,
+      message: 'Purchase end OK'
     })
 
   } catch (error) {

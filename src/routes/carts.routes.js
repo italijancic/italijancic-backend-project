@@ -14,5 +14,7 @@ router.delete('/:cid/product/:pid', carts.deleteProductToCart)
 
 router.get('/:cid', carts.getProductsByCartId)
 
+router.get('/:cid/purchase', carts.purchase)
+
 
 export default router
