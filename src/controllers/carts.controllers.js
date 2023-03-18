@@ -1,10 +1,11 @@
 import { STATUS } from '../constants/constants.js'
-import cartManagerDB from '../services/carts.mongo.services.js'
+import factory from '../services/factory.js'
 
 export const postCart = async (req, res) => {
   try {
 
-    const createdCart = await cartManagerDB.createCart()
+    const createdCart = await factory.carts.createCart()
+    // const createdCart = await cartManagerDB.createCart()
 
     res.status(201).json({
       success: STATUS.SUCCESS,
@@ -26,7 +27,8 @@ export const addProductToCart = async (req, res) => {
     let { quantity } = req.body
 
     if (quantity) {
-      await cartManagerDB.addProductToCart(cid, pid, quantity)
+      await factory.carts.addProductToCart(cid, pid, quantity)
+      // await cartManagerDB.addProductToCart(cid, pid, quantity)
     } else {
       res.status(401).json({
         success: STATUS.FAIL,
@@ -53,7 +55,8 @@ export const addProductsToCart = async (req, res) => {
     let { items } = req.body
 
     if (items && cid) {
-      const updatedCart = await cartManagerDB.addProductsToCart(cid, items)
+      const updatedCart = await factory.carts.addProductsToCart(cid, items)
+      // const updatedCart = await cartManagerDB.addProductsToCart(cid, items)
 
       res.status(201).json({
         success: STATUS.SUCCESS,
@@ -81,7 +84,8 @@ export const deleteProductToCart = async (req, res) => {
     let { cid, pid } = req.params
 
     // Check if product id exist
-    const updatedCart = await cartManagerDB.deleteProductToCart(cid, pid)
+    const updatedCart = await factory.carts.deleteProductToCart(cid, pid)
+    // const updatedCart = await cartManagerDB.deleteProductToCart(cid, pid)
 
     res.status(201).json({
       success: STATUS.SUCCESS,
@@ -101,7 +105,8 @@ export const getProductsByCartId = async (req, res) => {
   try {
     const cid = req.params.cid
 
-    const products = await cartManagerDB.getProductsByCartId(cid)
+    const products = await factory.carts.getProductsByCartId(cid)
+    // const products = await cartManagerDB.getProductsByCartId(cid)
 
     res.status(200).json({
       success: STATUS.SUCCESS,
