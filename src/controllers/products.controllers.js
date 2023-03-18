@@ -53,11 +53,9 @@ export const postProduct = async (req, res) => {
 
     // Save on MongoDB
     const savedProduct = await factory.products.createProduct(product)
-    // const savedProduct = await productManagerDB.createProduct(product)
 
     // Send update over ws
     const productsList = await factory.products.getProducts()
-    // const productsList = await productManagerDB.getProducts()
     req.io.emit('products', productsList)
 
     res.status(201).json({
@@ -81,11 +79,9 @@ export const updateProduct = async (req, res) => {
     const data = req.body
 
     const updatedProduct = await factory.products.updateProduct(pid, data)
-    // const updatedProduct = await productManagerDB.updateProduct(pid, data)
 
     // Send update over ws
     const productsList = await factory.products.getProducts()
-    // const productsList = await productManagerDB.getProducts()
     req.io.emit('products', productsList)
 
     res.status(200).json({
@@ -108,10 +104,8 @@ export const deleteProductById = async (req, res) => {
     const { pid } = req.params
     // Delete on DB
     await factory.products.deleteProduct(pid)
-    // await productManagerDB.deleteProduct(pid)
 
     // Get products from DB and send over ws
-    // const productsList = await productManagerDB.getProducts()
     const productsList = await factory.products.getProducts()
     req.io.emit('products', productsList)
 
