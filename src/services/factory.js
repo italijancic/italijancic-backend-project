@@ -1,6 +1,7 @@
 import { PERSISTENCIA } from '../constants/constants.js'
 import configs from '../configs/app.configs.js'
 import { UserRepository } from './usersDAOs/users.repository.js'
+import { ProductRepository } from './productsDAOs/products.repository.js'
 
 let factory = {}
 
@@ -9,18 +10,24 @@ switch(configs.persistencia) {
     console.log('🏭 Mongo persist')
     await import ('../configs/mongo.js')
     // eslint-disable-next-line no-case-declarations
-    const { default: userMongo } = await import('./usersDAOs/users.mongo.dao.js')
+    const { default: usersMongo } = await import('./usersDAOs/users.mongo.dao.js')
+    // eslint-disable-next-line no-case-declarations
+    const { default: productsMongo } = await import('./productsDAOs/products.mongo.dao.js')
     factory = {
-      users: new UserRepository(userMongo)
+      users: new UserRepository(usersMongo),
+      products: new ProductRepository(productsMongo)
     }
     break
 
   case PERSISTENCIA.FILE:
     console.log('🏭 File persist')
     // eslint-disable-next-line no-case-declarations
-    const { default: userFile } = await import('./usersDAOs/users.file.dao.js')
+    const { default: usersFile } = await import('./usersDAOs/users.file.dao.js')
+    // eslint-disable-next-line no-case-declarations
+    const { default: productsFile } = await import('./productsDAOs/products.file.dao.js')
     factory = {
-      users: new UserRepository(userFile)
+      users: new UserRepository(usersFile),
+      products: new ProductRepository(productsFile)
     }
     break
 
@@ -29,7 +36,7 @@ switch(configs.persistencia) {
     break
 
   case PERSISTENCIA.MEMORY:
-    console.log('🏭 memory persist')
+    console.log('🧨 memory persist')
     break
 }
 
