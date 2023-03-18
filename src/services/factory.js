@@ -8,7 +8,7 @@ let factory = {}
 
 switch(configs.persistencia) {
   case PERSISTENCIA.MONGO:
-    console.log('🏭 Mongo persist')
+    console.log('[factory.js]: 🏭 Mongo persist')
     await import ('../configs/mongo.js')
     // eslint-disable-next-line no-case-declarations
     const { default: usersMongo } = await import('./usersDAOs/users.mongo.dao.js')
@@ -24,7 +24,7 @@ switch(configs.persistencia) {
     break
 
   case PERSISTENCIA.FILE:
-    console.log('🏭 File persist')
+    console.log('[factory.js]: 🏭 File persist')
     // eslint-disable-next-line no-case-declarations
     const { default: usersFile } = await import('./usersDAOs/users.file.dao.js')
     // eslint-disable-next-line no-case-declarations
@@ -39,11 +39,11 @@ switch(configs.persistencia) {
     break
 
   case PERSISTENCIA.MYSQL:
-    console.log('🏭 mysql persist')
+    console.log('[factory.js]: 🏭 mysql persist')
     break
 
   case PERSISTENCIA.MEMORY:
-    console.log('🧨 memory persist')
+    console.log('[factory.js]: 🏭 memory persist')
     break
 }
 
