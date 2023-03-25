@@ -7,6 +7,8 @@ const router = Router()
 
 router.get('/', products.getProducts)
 
+router.get('/mockingproducts', products.mockProducts)
+
 router.get('/:pid', products.getproductById)
 
 router.post('/', [ isLogged, isAdmin ], products.postProduct)
