@@ -6,8 +6,6 @@ import session from 'express-session'
 import mongoStore from 'connect-mongo'
 
 import passport from './utils/passport.utils.js'
-import dbConnect from './configs/db.config.js'
-import routes from './routes/index.routes.js'
 
 const app = express()
 app.use(express.json())
@@ -39,14 +37,9 @@ app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
 app.set('views', 'src/views')
 
-// Connect to MongoDB
-dbConnect()
-
 // Passport config
 app.use(passport.initialize())
 app.use(passport.session())
 
-// HTTP Server routes
-app.use(routes)
 
 export default app

@@ -1,10 +1,10 @@
 import { STATUS } from '../constants/constants.js'
-import productManagerDB from '../services/products.mongo.services.js'
+import factory from '../services/factory.js'
 
 export const getProducts = async (req, res) => {
   try {
 
-    const { products, metadata } = await productManagerDB.getProducts(req.query)
+    const { products, metadata } = await factory.products.getProducts(req.query)
 
     res.status(200).json({
       status: STATUS.SUCCESS,
@@ -26,8 +26,8 @@ export const getproductById = async (req, res) => {
 
     if (pid) {
 
-      // const foundedProduct = await productManagerFs.getproductById(Number(pid))
-      const foundedProduct = await productManagerDB.getProductById(pid)
+      const foundedProduct = await factory.products.getProductById(pid)
+
       res.status(200).json({
         success: true,
         product: foundedProduct
@@ -52,13 +52,10 @@ export const postProduct = async (req, res) => {
     const product = req.body
 
     // Save on MongoDB
-    const savedProduct = await productManagerDB.createProduct(product)
-    // Save on file
-    // await productManagerFs.addProduct(createdProduct)
+    const savedProduct = await factory.products.createProduct(product)
 
     // Send update over ws
-    // const productsList = await productManagerFs.getProducts()
-    const productsList = await productManagerDB.getProducts()
+    const productsList = await factory.products.getProducts()
     req.io.emit('products', productsList)
 
     res.status(201).json({
@@ -81,10 +78,10 @@ export const updateProduct = async (req, res) => {
     const pid = req.params.pid
     const data = req.body
 
-    const updatedProduct = await productManagerDB.updateProduct(pid, data)
+    const updatedProduct = await factory.products.updateProduct(pid, data)
 
     // Send update over ws
-    const productsList = await productManagerDB.getProducts()
+    const productsList = await factory.products.getProducts()
     req.io.emit('products', productsList)
 
     res.status(200).json({
@@ -106,12 +103,10 @@ export const deleteProductById = async (req, res) => {
 
     const { pid } = req.params
     // Delete on DB
-    await productManagerDB.deleteProduct(pid)
-    // Delete on file
-    // await productManagerFs.deleteProduct(Number(pid))
+    await factory.products.deleteProduct(pid)
 
     // Get products from DB and send over ws
-    const productsList = await productManagerDB.getProducts()
+    const productsList = await factory.products.getProducts()
     req.io.emit('products', productsList)
 
     res.status(200).json({

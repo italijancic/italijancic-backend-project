@@ -38,6 +38,10 @@ export const logout = async (req, res) => {
         res.json(error)
       } else {
         res.redirect('/login')
+        // res.status(200).json({
+        //   status: STATUS.SUCCESS,
+        //   message: 'User Logout OK'
+        // })
       }
     })
   } catch (error) {
