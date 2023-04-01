@@ -12,9 +12,12 @@ class UserMongo {
   async getUser(email) {
     try {
       const user = await this.user.findOne({ email: email }).lean()
+      if (!user) {
+        throw new Error('Error searching user')
+      }
       return user
     } catch (error) {
-      throw new Error('Error searching user')
+      throw new Error(error.message)
     }
   }
 
