@@ -1,12 +1,14 @@
-import config from './app.configs.js'
 import mongoose from 'mongoose'
+
+import config from './app.configs.js'
+import logger from '../utils/logger.utils.js'
 
 mongoose.set('strictQuery', false)
 mongoose.connect(config.mongoUri, (err) => {
   if (err) {
-    console.log('❌ Error:' + err)
+    logger.error('❌ Error:' + err)
   } else {
-    console.log('✅ Connected to MongoDB')
+    logger.info('✅ Connected to MongoDB')
   }
 })
 

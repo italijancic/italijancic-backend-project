@@ -8,6 +8,7 @@ import authRoutes from './auth.routes.js'
 import passportLocalRoutes from './passportLocal.routes.js'
 import githubRoutes from './github.routes.js'
 import sessionRoutes from './sessions.routes.js'
+import loggerRoutes from './logger.routes.js'
 
 const router = Router()
 
@@ -34,5 +35,8 @@ router.use('/api/products', productsRoutes)
 
 // Carts API
 router.use('/api/carts', cartsRoutes)
+
+// Winston: logger testing
+router.use('/loggerTest', loggerRoutes)
 
 export default router

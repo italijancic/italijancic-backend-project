@@ -6,6 +6,7 @@ import session from 'express-session'
 import mongoStore from 'connect-mongo'
 
 import passport from './utils/passport.utils.js'
+// import loggerMiddleware from './middlewares/logger.middleware.js'
 
 const app = express()
 app.use(express.json())
@@ -41,5 +42,6 @@ app.set('views', 'src/views')
 app.use(passport.initialize())
 app.use(passport.session())
 
+// app.use(loggerMiddleware)
 
 export default app
