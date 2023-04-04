@@ -9,6 +9,7 @@ import passportLocalRoutes from './passportLocal.routes.js'
 import githubRoutes from './github.routes.js'
 import sessionRoutes from './sessions.routes.js'
 import loggerRoutes from './logger.routes.js'
+import restorePasswordRoutes from './restorePassword.routes.js'
 
 const router = Router()
 
@@ -38,5 +39,8 @@ router.use('/api/carts', cartsRoutes)
 
 // Winston: logger testing
 router.use('/loggerTest', loggerRoutes)
+
+// Restore password
+router.use('/api/restorePassword', restorePasswordRoutes)
 
 export default router

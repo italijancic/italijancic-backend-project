@@ -1,7 +1,7 @@
 import { createTransport } from 'nodemailer'
 
 import configs from '../configs/app.configs.js'
-import jwtUtils from './jwt.utils.js'
+import * as jwtUtils from './jwt.utils.js'
 
 export const sendEmail = async (email) => {
   try {
@@ -21,8 +21,8 @@ export const sendEmail = async (email) => {
     const emailOptions = {
       from: configs.gmailUser,
       to: email,
-      subject: 'Yout link for password restoration',
-      text: `Use the following link to access the secret page before ${expirationDate}: http://localhost:${configs.port}/password-restore?token=${token}`
+      subject: 'Your link for password restoration',
+      text: `Use the following link to access the secret page before ${expirationDate}: http://localhost:${configs.port}/api/restorePassword/?email=${email}&token=${token}`
     }
 
     const result = await transportGamil.sendMail(emailOptions)
