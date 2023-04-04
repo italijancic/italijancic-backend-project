@@ -133,7 +133,7 @@ export const mockProducts = async (req, res) => {
     const products = getProductsMocks(100)
 
     res.status(200).json({
-      success: STATUS.SUCCESS,
+      status: STATUS.SUCCESS,
       products
     })
 
