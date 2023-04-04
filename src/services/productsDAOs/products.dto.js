@@ -10,6 +10,7 @@ export default class ProductDTO {
     this.stock = product.stock
     this.category = product.category
     this.thumbnails = product.thumbnails
+    this.owner = product.owner || 'admin'
     this.deleted = product.deleted
     this.createdAt = product.createdAt
     this.updatedAt = product.updatedAt

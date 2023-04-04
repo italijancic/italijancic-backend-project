@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import mongooseDelete from 'mongoose-delete'
 import mongoosePaginate from 'mongoose-paginate-v2'
 
@@ -35,6 +35,10 @@ const productSchema = new mongoose.Schema({
     type: [String],
     required: true
   },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'Users',
+  }
 }, {timestamps: true})
 
 // Plugins instalations

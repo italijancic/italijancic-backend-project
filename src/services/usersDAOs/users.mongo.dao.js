@@ -32,7 +32,8 @@ class UserMongo {
 
   async createUser(data) {
     try {
-      const foundedUser = await this.getUser(data.email)
+      // const foundedUser = await this.getUser(data.email)
+      const foundedUser = await this.user.findOne({ email: data.email }).lean()
 
       if (foundedUser) {
         throw new Error('User Already exist')

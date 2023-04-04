@@ -57,8 +57,11 @@ class ProductMongo {
 
       // First calidate no repeat product code
       const foundedProduct = await this.product.findOne( { code: product.code } )
-      if (foundedProduct) {
-        throw new Error('Product code already exist')
+      if (foundedProduct.deleted) {
+        foundedProduct.deleted = false
+        const createdProduct = await this.product.findByIdAndUpdate(foundedProduct._id, foundedProduct, { new: true })
+        return createdProduct
+        // throw new Error('Product code already exist')
       } else {
         const createdProduct = await this.product.create(product)
         return createdProduct
@@ -81,10 +84,32 @@ class ProductMongo {
     }
   }
 
-  async deleteProduct(productId) {
+  async deleteProduct(productId, user) {
     try {
 
-      await this.product.delete( { _id: productId } )
+      const foundedProduct = await this.product.findById(productId).lean()
+
+      if (foundedProduct) {
+
+        if (user.role === 'admin') {
+          await this.product.delete({ _id: productId })
+          return
+        }
+
+        if (foundedProduct.owner === undefined) {
+          throw new Error('premium role user can only delethe his products')
+        }
+
+        if ( user.role === 'premium' && foundedProduct.owner._id == user._id) {
+          await this.product.delete({ _id: productId })
+          return
+        } else {
+          throw new Error('premium role user can only delethe his products')
+        }
+      } else {
+        throw new Error('Product does not exist')
+      }
+
 
     } catch (error) {
       throw new Error(error.message)
