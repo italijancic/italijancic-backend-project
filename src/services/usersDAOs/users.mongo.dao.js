@@ -21,6 +21,19 @@ class UserMongo {
     }
   }
 
+  async getUserById(id) {
+    try {
+      const user = await this.user.findById(id).lean()
+      if (!user) {
+        throw new Error('Error searching user')
+      }
+      return user
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
+
   async getUserByCartId(cartId) {
     try {
       const user = await this.user.findOne({ cartId: cartId }).lean()

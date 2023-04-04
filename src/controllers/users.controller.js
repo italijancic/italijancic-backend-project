@@ -8,14 +8,14 @@ export const createUser = async (req, res) => {
     delete createdUser.password
 
     res.status(201).json({
-      success: STATUS.SUCCESS,
+      status: STATUS.SUCCESS,
       message: 'User created OK',
       createdUser
     })
 
   } catch (error) {
     res.status(500).json({
-      success: STATUS.FAIL,
+      status: STATUS.FAIL,
       message: error.message,
     })
   }
@@ -30,12 +30,12 @@ export const getUser = async (req, res) => {
     delete user.password
 
     res.status(200).json({
-      success: STATUS.SUCCESS,
+      status: STATUS.SUCCESS,
       user: user
     })
   } catch (error) {
     res.status(500).json({
-      success: STATUS.FAIL,
+      status: STATUS.FAIL,
       message: error.message
     })
   }
@@ -52,12 +52,12 @@ export const updateUser = async (req, res) => {
     delete updatedUser.password
 
     res.status(200).json({
-      success: true,
+      status: STATUS.SUCCESS,
       updatedUser: updatedUser
     })
   } catch (error) {
     res.status(500).json({
-      success: false,
+      status: STATUS.FAIL,
       message: error.message
     })
   }
@@ -73,13 +73,37 @@ export const updatePassword = async (req, res) => {
     const updatedUser = await factory.users.updateUser(email, body, true)
 
     res.status(200).json({
-      success: true,
+      status: STATUS.SUCCESS,
       updatedUser: updatedUser
     })
 
   } catch (error) {
     res.status(500).json({
-      success: false,
+      status: STATUS.FAIL,
+      message: error.message
+    })
+  }
+
+}
+
+export const updateUserRole = async (req, res) => {
+
+  try {
+    const { uid } = req.params
+
+    let user = await factory.users.getUserById(uid)
+    user.role = 'premium'
+
+    const updatedUser = await factory.users.updateUser(user.email, user, false)
+    delete updatedUser.password
+
+    res.status(200).json({
+      status: STATUS.SUCCESS,
+      updatedUser: updatedUser
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: STATUS.FAIL,
       message: error.message
     })
   }
