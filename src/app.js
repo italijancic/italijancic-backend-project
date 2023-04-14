@@ -8,6 +8,9 @@ import mongoStore from 'connect-mongo'
 import passport from './utils/passport.utils.js'
 // import loggerMiddleware from './middlewares/logger.middleware.js'
 
+import swaggerUiExpress from 'swagger-ui-express'
+import specs from './utils/swagger.utils.js'
+
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -43,5 +46,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // app.use(loggerMiddleware)
+
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
 
 export default app

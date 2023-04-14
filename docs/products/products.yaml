@@ -1,0 +1,64 @@
+paths:
+  /api/products/:
+    get:
+      summary: Get all products
+      produces:
+        - application/json
+      tags:
+        - Products
+      responses:
+        200:
+          description: 'Successful Response'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+
+  /api/products/{pid}:
+    get:
+      summary: Get product by product id
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: ID of product
+        schema:
+          $type: String
+      produces:
+        - application/json
+      tags:
+        - Products
+      responses:
+        200:
+          description: 'Successful Response'
+          schema:
+            $ref: '#/definitions/Product'
+
+definitions:
+  Product:
+    type: object
+    properties:
+      _id:
+        type: string
+        description: The ID of the objecto on DB
+      title:
+        type: string
+        description: Title/Name of the product
+      description:
+        type: string
+        description: The description of the product
+      code:
+        type: string
+        description: Code of product article
+      price:
+        type: number
+        description: The price of the product
+      stock:
+        type: integer
+        description: Current stock of this product
+      category:
+        type: string
+        description: Product category
+      thumbnails:
+        type: string
+        description: Array of products images URLs
