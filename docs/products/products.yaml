@@ -21,15 +21,16 @@ paths:
                 $ref: '#/components/schemas/FailResponse'
 
   /api/products/{pid}:
+    parameters:
+    - name: pid
+      in: path
+      required: true
+      description: ID of product
+      schema:
+        $type: String
+
     get:
       summary: Get product by product id
-      parameters:
-      - name: pid
-        in: path
-        required: true
-        description: ID of product
-        schema:
-          $type: String
       tags:
         - Products
       responses:
@@ -46,8 +47,123 @@ paths:
               schema:
                 $ref: '#/components/schemas/FailResponse'
 
+    put:
+      summary: Update a product
+      requestBody:
+        description: Data of product that will be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      tags:
+        - Products
+      responses:
+        '201':
+          description: 'Successful Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCreatedResponse'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+    delete:
+      summary: Delete product by product id
+      tags:
+        - Products
+      responses:
+        '200':
+          description: 'Successful Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessfulyDeletedProduct'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+  /api/products:
+    post:
+      summary: Create a product
+      requestBody:
+        description: Data of product that will be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      tags:
+        - Products
+      responses:
+        '201':
+          description: 'Successful Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCreatedResponse'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+
 components:
   schemas:
+    SuccessfulyDeletedProduct:
+      type: object
+      properties:
+        status:
+          type: string
+          description: field to indicate reques transaction status
+        message:
+          type: string
+          description: Message to indicate that product was created
+      example:
+        status: success
+        message: Product Id = 63c9d316a89db3eb82e330e8 successfully deleted
+
+    ProductCreatedResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: field to indicate reques transaction status
+        message:
+          type: string
+          description: Message to indicate that product was created
+        product:
+          type: object
+          description: Object of created product
+      example:
+        status: success
+        message: Product created OK
+        product:
+          _id: "63c9d316a89db3eb82e330e8"
+          title: "Test product from postman"
+          description: "Producto de prueba"
+          code: "CR86A51"
+          price: 100
+          status: true
+          stock: 8
+          category: "Test-1"
+          thumbnails": [
+            "./imgs/img-1.jpg",
+            "./imgs/img-1-2.jpg"
+          ]
+          deleted: false
+          createdAt: "2023-01-19T23:32:38.743Z"
+          updatedAt: "2023-03-18T21:29:54.497Z"
+
     FailResponse:
       type: object
       properties:
@@ -60,6 +176,7 @@ components:
       example:
         status: Error
         message: Product does not exist
+
     Product:
       type: object
       properties:
