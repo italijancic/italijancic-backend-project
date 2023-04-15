@@ -1,7 +1,8 @@
 import swaggerJSDoc from 'swagger-jsdoc'
 
-const swaggerOptios = {
-  swaggerDefinition: {
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.1',
     info: {
       title: 'Coderhouse Backend Project Documentation',
       description: 'Carts and Products API endpoints',
@@ -11,6 +12,6 @@ const swaggerOptios = {
   apis: ['docs/**/*.yaml']
 }
 
-const specs =  swaggerJSDoc(swaggerOptios)
+const specs =  swaggerJSDoc(swaggerOptions)
 
 export default specs
