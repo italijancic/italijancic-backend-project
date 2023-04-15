@@ -27,7 +27,7 @@ paths:
       required: true
       description: ID of product
       schema:
-        $type: String
+        $type: string
 
     get:
       summary: Get product by product id

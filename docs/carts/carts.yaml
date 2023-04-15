@@ -20,42 +20,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/FailResponse'
 
-  /api/products/{pid}:
+  /api/carts/{cid}:
     parameters:
-    - name: pid
+    - name: cid
       in: path
       required: true
-      description: ID of product
+      description: ID of cart
       schema:
-        $type: String
-
-    get:
-      summary: Get product by product id
-      tags:
-        - Carts
-      responses:
-        '200':
-          description: 'Successful Response'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Product'
-        '500':
-          description: 'Fail response'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FailResponse'
+        $type: string
 
     put:
-      summary: Update a product
-      requestBody:
-        description: Data of product that will be created
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Product'
+      summary: Add product to cart
       tags:
         - Carts
       responses:
@@ -64,7 +39,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductCreatedResponse'
+                $ref: '#/components/schemas/AddProductSuccessResponse'
+        '401':
+          description: 'Error response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
         '500':
           description: 'Fail response'
           content:
@@ -90,35 +71,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/FailResponse'
 
-  /api/products:
-    post:
-      summary: Create a product
-      requestBody:
-        description: Data of product that will be created
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Product'
-      tags:
-        - Carts
-      responses:
-        '201':
-          description: 'Successful Response'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProductCreatedResponse'
-        '500':
-          description: 'Fail response'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FailResponse'
-
-
 components:
   schemas:
+
+    AddProductSuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+          description: Error message
+      example:
+        status: success
+        message: Product added to cart OK
 
     FailResponse:
       type: object
@@ -131,7 +97,7 @@ components:
           description: Error message
       example:
         status: Error
-        message: Failed to create cart
+        message: Error message description
 
     CartCreatedResponse:
       type: object
