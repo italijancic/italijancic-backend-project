@@ -20,6 +20,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/FailResponse'
 
+  /api/carts/{cid}/purchase:
+    parameters:
+    - name: cid
+      in: path
+      required: true
+      description: ID of cart
+      schema:
+        $type: string
+
+    post:
+      summary: Purchase a cart
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: 'Successful Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartPurchaseSuccessResponse'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
   /api/carts/{cid}:
     parameters:
     - name: cid
@@ -29,8 +56,78 @@ paths:
       schema:
         $type: string
 
+    get:
+      summary: Get products by cart ID
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: 'Successful Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductsByCartId'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+    put:
+      summary: Add products to cart
+      requestBody:
+        description: Array of items to add in the cart
+        required: true
+        content:
+          application/json:
+            type: array
+            items:
+              $ref: '#/components/schemas/CartItem'
+      tags:
+        - Carts
+      responses:
+        '201':
+          description: 'Successful Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddProductSuccessResponse'
+        '401':
+          description: 'Error response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+  /api/carts/{cid}/product/{pid}:
+    parameters:
+    - name: cid
+      in: path
+      required: true
+      description: ID of cart
+      schema:
+        $type: string
+    - name: pid
+      in: path
+      required: true
+      description: ID of the product
+      schema:
+        $type: string
+
     put:
       summary: Add product to cart
+      requestBody:
+        description: Quantity of items to add
+        required: true
+        content:
+          type: integer
       tags:
         - Carts
       responses:
@@ -85,6 +182,18 @@ components:
       example:
         status: success
         message: Product added to cart OK
+
+    CartPurchaseSuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+          description: Error message
+      example:
+        status: success
+        message: Purchase OK
 
     FailResponse:
       type: object
@@ -170,7 +279,7 @@ components:
       properties:
         product:
           type: object
-          $ref: '#components/schemas/Product'
+          $ref: '#/components/schemas/Product'
         quantity:
           type: integer
           description: Amount of pieces for this product in this cart
@@ -184,4 +293,15 @@ components:
         items:
           type: array
           items:
-            $ref: '#components/schemas/CartItem'
+            $ref: '#/components/schemas/CartItem'
+
+    GetProductsByCartId:
+      type: object
+      properties:
+        success:
+          type: string
+          description: status of transaction
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/CartItem'

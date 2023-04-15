@@ -124,10 +124,10 @@ components:
       properties:
         status:
           type: string
-          description: field to indicate reques transaction status
+          description: field to indicate request transaction status
         message:
           type: string
-          description: Message to indicate that product was created
+          description: Message to indicate that product was deleted
       example:
         status: success
         message: Product Id = 63c9d316a89db3eb82e330e8 successfully deleted
