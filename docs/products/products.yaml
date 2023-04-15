@@ -13,6 +13,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
 
   /api/products/{pid}:
     get:
@@ -33,9 +39,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
 
 components:
   schemas:
+    FailResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: field to indicate reques transaction status
+        message:
+          type: string
+          description: Error message
+      example:
+        status: Error
+        message: Product does not exist
     Product:
       type: object
       properties:
@@ -63,3 +87,29 @@ components:
         thumbnails:
           type: string
           description: Array of products images URLs
+        deleted:
+          type: boolean
+          description: Soft delet flag
+        createdAt:
+          type: string
+          description: Date of creation
+        deletedAt:
+          type: string
+          description: Date of soft deletion
+      example:
+        _id: "63c9d316a89db3eb82e330e8"
+        title: "Test product from postman"
+        description: "Producto de prueba"
+        code: "CR86A51"
+        price: 100
+        status: true
+        stock: 8
+        category: "Test-1"
+        thumbnails": [
+          "./imgs/img-1.jpg",
+          "./imgs/img-1-2.jpg"
+        ]
+        deleted: false
+        createdAt: "2023-01-19T23:32:38.743Z"
+        updatedAt: "2023-03-18T21:29:54.497Z"
+
