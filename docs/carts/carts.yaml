@@ -1,6 +1,221 @@
 paths:
-  /api/carts:
-    get:
-      summary: Get all carts
+  /api/carts/:
+    post:
+      summary: Create cart
       tags:
         - Carts
+      responses:
+        '201':
+          description: 'Successful Response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cart'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+  /api/products/{pid}:
+    parameters:
+    - name: pid
+      in: path
+      required: true
+      description: ID of product
+      schema:
+        $type: String
+
+    get:
+      summary: Get product by product id
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: 'Successful Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+    put:
+      summary: Update a product
+      requestBody:
+        description: Data of product that will be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      tags:
+        - Carts
+      responses:
+        '201':
+          description: 'Successful Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCreatedResponse'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+    delete:
+      summary: Delete product by product id
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: 'Successful Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessfulyDeletedProduct'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+  /api/products:
+    post:
+      summary: Create a product
+      requestBody:
+        description: Data of product that will be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      tags:
+        - Carts
+      responses:
+        '201':
+          description: 'Successful Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCreatedResponse'
+        '500':
+          description: 'Fail response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailResponse'
+
+
+components:
+  schemas:
+
+    FailResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: field to indicate reques transaction status
+        message:
+          type: string
+          description: Error message
+      example:
+        status: Error
+        message: Failed to create cart
+
+    CartCreatedResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: field to indicate reques transaction status
+        message:
+          type: string
+          description: Message to indicate that product was created
+        product:
+          type: object
+          description: Object of created product
+
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The ID of the objecto on DB
+        title:
+          type: string
+          description: Title/Name of the product
+        description:
+          type: string
+          description: The description of the product
+        code:
+          type: string
+          description: Code of product article
+        price:
+          type: number
+          description: The price of the product
+        stock:
+          type: integer
+          description: Current stock of this product
+        category:
+          type: string
+          description: Product category
+        thumbnails:
+          type: string
+          description: Array of products images URLs
+        deleted:
+          type: boolean
+          description: Soft delet flag
+        createdAt:
+          type: string
+          description: Date of creation
+        deletedAt:
+          type: string
+          description: Date of soft deletion
+      example:
+        _id: "63c9d316a89db3eb82e330e8"
+        title: "Test product from postman"
+        description: "Producto de prueba"
+        code: "CR86A51"
+        price: 100
+        status: true
+        stock: 8
+        category: "Test-1"
+        thumbnails": [
+          "./imgs/img-1.jpg",
+          "./imgs/img-1-2.jpg"
+        ]
+        deleted: false
+        createdAt: "2023-01-19T23:32:38.743Z"
+        updatedAt: "2023-03-18T21:29:54.497Z"
+
+    CartItem:
+      type: object
+      properties:
+        product:
+          type: object
+          $ref: '#components/schemas/Product'
+        quantity:
+          type: integer
+          description: Amount of pieces for this product in this cart
+
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The ID of the objecto on DB
+        items:
+          type: array
+          items:
+            $ref: '#components/schemas/CartItem'

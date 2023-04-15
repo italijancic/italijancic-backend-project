@@ -202,8 +202,10 @@ components:
           type: string
           description: Product category
         thumbnails:
-          type: string
           description: Array of products images URLs
+          type: array
+          items:
+            type: string
         deleted:
           type: boolean
           description: Soft delet flag
@@ -222,7 +224,7 @@ components:
         status: true
         stock: 8
         category: "Test-1"
-        thumbnails": [
+        thumbnails: [
           "./imgs/img-1.jpg",
           "./imgs/img-1-2.jpg"
         ]
