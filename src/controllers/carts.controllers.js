@@ -22,8 +22,23 @@ export const postCart = async (req, res) => {
 
 export const addProductToCart = async (req, res) => {
   try {
-    let { cid, pid } = req.params
-    let { quantity } = req.body
+    const { cid, pid } = req.params
+    const { quantity } = req.body
+
+    const user = req.session.user
+
+    if (user.role === 'premium') {
+      const foundedProduct = await factory.products.getProductById(pid)
+
+      if (foundedProduct.owner === 'admin') {
+        throw new Error('premium role user can only delete his products')
+      }
+
+      if (foundedProduct.owner._id.toString() !== user._id) {
+        throw new Error('premium role user can only delete his products')
+      }
+    }
+
 
     if (quantity) {
       await factory.carts.addProductToCart(cid, pid, quantity)

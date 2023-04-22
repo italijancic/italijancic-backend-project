@@ -21,6 +21,19 @@ class UserMongo {
     }
   }
 
+  async getUserById(id) {
+    try {
+      const user = await this.user.findById(id).lean()
+      if (!user) {
+        throw new Error('Error searching user')
+      }
+      return user
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
+
   async getUserByCartId(cartId) {
     try {
       const user = await this.user.findOne({ cartId: cartId }).lean()
@@ -32,7 +45,8 @@ class UserMongo {
 
   async createUser(data) {
     try {
-      const foundedUser = await this.getUser(data.email)
+      // const foundedUser = await this.getUser(data.email)
+      const foundedUser = await this.user.findOne({ email: data.email }).lean()
 
       if (foundedUser) {
         throw new Error('User Already exist')

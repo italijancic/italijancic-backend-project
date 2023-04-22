@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { isLogged, isAdmin } from '../middlewares/auth.middleware.js'
+import { isLogged, isAdmin, isAdminOrPremium } from '../middlewares/auth.middleware.js'
 
 import * as products from '../controllers/products.controllers.js'
 
@@ -11,10 +11,10 @@ router.get('/mockingproducts', products.mockProducts)
 
 router.get('/:pid', products.getproductById)
 
-router.post('/', [ isLogged, isAdmin ], products.postProduct)
+router.post('/', [ isLogged ], products.postProduct)
 
 router.put('/:pid', [ isLogged, isAdmin ], products.updateProduct)
 
-router.delete('/:pid', [ isLogged, isAdmin ], products.deleteProductById)
+router.delete('/:pid', [ isLogged, isAdminOrPremium ], products.deleteProductById)
 
 export default router

@@ -30,12 +30,12 @@ export const getproductById = async (req, res) => {
       const foundedProduct = await factory.products.getProductById(pid)
 
       res.status(200).json({
-        success: true,
+        status: STATUS.SUCCESS,
         product: foundedProduct
       })
     } else {
       res.status(400).json({
-        success: false,
+        status: STATUS.FAIL,
         message: 'Bad or missing product ID'
       })
     }
@@ -52,6 +52,8 @@ export const postProduct = async (req, res) => {
   try {
     const product = req.body
 
+    product.owner = req.session.user._id
+
     // Save on MongoDB
     const savedProduct = await factory.products.createProduct(product)
 
@@ -60,7 +62,7 @@ export const postProduct = async (req, res) => {
     req.io.emit('products', productsList)
 
     res.status(201).json({
-      success: true,
+      status: STATUS.SUCCESS,
       message: 'Product creation OK',
       product: savedProduct
     })
@@ -86,7 +88,7 @@ export const updateProduct = async (req, res) => {
     req.io.emit('products', productsList)
 
     res.status(200).json({
-      success: true,
+      status: STATUS.SUCCESS,
       message: `Product Id = ${req.params.pid} successfully updated`,
       updatedProduct: updatedProduct
     })
@@ -103,15 +105,17 @@ export const deleteProductById = async (req, res) => {
   try {
 
     const { pid } = req.params
+    const user = req.session.user
+
     // Delete on DB
-    await factory.products.deleteProduct(pid)
+    await factory.products.deleteProduct(pid, user)
 
     // Get products from DB and send over ws
     const productsList = await factory.products.getProducts()
     req.io.emit('products', productsList)
 
     res.status(200).json({
-      success: true,
+      status: STATUS.SUCCESS,
       message: `Product Id = ${req.params.pid} successfully deleted`
     })
 
@@ -129,7 +133,7 @@ export const mockProducts = async (req, res) => {
     const products = getProductsMocks(100)
 
     res.status(200).json({
-      success: STATUS.SUCCESS,
+      status: STATUS.SUCCESS,
       products
     })
 
