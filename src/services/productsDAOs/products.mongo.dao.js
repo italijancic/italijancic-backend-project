@@ -57,7 +57,7 @@ class ProductMongo {
 
       // First calidate no repeat product code
       const foundedProduct = await this.product.findOne( { code: product.code } )
-      if (foundedProduct.deleted) {
+      if (foundedProduct?.deleted) {
         foundedProduct.deleted = false
         const createdProduct = await this.product.findByIdAndUpdate(foundedProduct._id, foundedProduct, { new: true })
         return createdProduct
