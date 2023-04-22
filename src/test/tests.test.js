@@ -9,15 +9,6 @@ const expect = chai.expect
 
 const requester = supertest('http://localhost:3000')
 
-const mockAdminUser = {
-  firstName: 'Admin',
-  lastName: 'Test',
-  email: 'admin@test.com',
-  age: '32',
-  password: '123456',
-  role: 'admin'
-}
-
 const mockUser = {
   firstName: 'User',
   lastName: 'Test',
@@ -55,7 +46,6 @@ describe('Ecommerce Tests', () => {
   after(async () => {
     mongoose.connection.close()
   })
-
 
   describe('Users', () => {
 
@@ -122,6 +112,29 @@ describe('Ecommerce Tests', () => {
       expect(ok).to.be.true
       expect(_body.status).to.be.equal('success')
     })
+  })
+
+  describe('Carts', () => {
+
+    it('Cart creation', async () => {
+      const { statusCode, ok, _body } = await requester.post('/api/carts')
+      expect(statusCode).to.equal(201)
+      expect(ok).to.be.true
+      expect(_body.success).to.be.equal('success')
+      expect(_body.message).to.be.equal('Cart created OK')
+    })
+
+    it('Get products by CartId', async () => {
+      const response = await requester.post('/api/carts')
+      const createdCart = response._body.createdCart
+      const { statusCode, ok, _body } = await requester.get(`/api/carts/${createdCart.id}`)
+
+      expect(statusCode).to.equal(200)
+      expect(ok).to.be.true
+      expect(_body.success).to.be.equal('success')
+      expect(_body.products.items).to.be.an('array').that.is.empty
+    })
+
   })
 
 
