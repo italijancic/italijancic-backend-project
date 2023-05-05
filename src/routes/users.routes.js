@@ -18,6 +18,6 @@ router.put('/updatePassword/:email', usersControllers.updatePassword)
 // Get user
 router.get('/', usersControllers.getUser)
 
-router.post('/premium/:uid', usersControllers.updateUserRole )
+router.post('/premium/:uid', usersControllers.updateUserRole)
 
 export default router
