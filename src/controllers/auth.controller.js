@@ -1,5 +1,5 @@
 import { STATUS } from '../constants/constants.js'
-import * as usersServices from '../services/users.services.js'
+import factory from '../services/factory.js'
 import * as authServices from '../services/auth.services.js'
 
 export const login = async (req, res) => {
@@ -10,7 +10,7 @@ export const login = async (req, res) => {
 
     if (logged) {
       req.session.logged = true
-      req.session.user = await usersServices.getUser(email)
+      req.session.user = await factory.users.getUser(email)
 
       res.status(200).json({
         status: STATUS.SUCCESS,
@@ -37,11 +37,11 @@ export const logout = async (req, res) => {
       if (error) {
         res.json(error)
       } else {
-        res.redirect('/login')
-        // res.status(200).json({
-        //   status: STATUS.SUCCESS,
-        //   message: 'User Logout OK'
-        // })
+        // res.redirect('/login')
+        res.status(200).json({
+          status: STATUS.SUCCESS,
+          message: 'User Logout OK'
+        })
       }
     })
   } catch (error) {

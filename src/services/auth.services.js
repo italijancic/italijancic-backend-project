@@ -1,11 +1,12 @@
 import bcrypt from 'bcrypt'
 
-import * as userServices from './users.services.js'
+import factory from '../services/factory.js'
 
 export const login = async (email, password) => {
   try {
 
-    const user = await userServices.getUser(email)
+    // const user = await userServices.getUser(email)
+    const user = await factory.users.getUser(email)
 
     if (!user) {
       throw new Error('User does not exist')
@@ -15,6 +16,8 @@ export const login = async (email, password) => {
     const isValid = bcrypt.compareSync(password, user.password)
 
     if ( isValid ) {
+      user.lastConecction = new Date()
+      await factory.users.updateUser(email, user)
       return true
     } else {
       return false

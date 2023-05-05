@@ -45,9 +45,14 @@ const userSchema = new Schema({
     required: true,
     default: 'user'
   },
-  documents: {
-    type: documentSchema,
-    default: []
+  documents: [
+    {
+      type: documentSchema,
+      default: []
+    }
+  ],
+  lastConecction: {
+    type: Date,
   }
 },
 {
