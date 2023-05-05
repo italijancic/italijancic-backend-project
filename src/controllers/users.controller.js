@@ -1,5 +1,6 @@
 import { STATUS } from '../constants/constants.js'
 import factory from '../services/factory.js'
+import { __dirname } from '../utils/uploader.utils.js'
 
 export const createUser = async (req, res) => {
   try {
@@ -108,4 +109,20 @@ export const updateUserRole = async (req, res) => {
     })
   }
 
+}
+
+export const uploadFiles = async (req, res) => {
+  try {
+
+    res.status(201).json({
+      status: STATUS.SUCCESS,
+      message: 'File upload OK',
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      status: STATUS.FAIL,
+      message: error.message,
+    })
+  }
 }
