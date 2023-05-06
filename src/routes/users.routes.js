@@ -11,7 +11,7 @@ router.post('/', usersControllers.createUser)
 // Create user
 router.post('/:uid/documents',
   [
-    // isLogged,
+    isLogged,
     uploader.fields([
       { name: 'profile' },
       { name: 'product' },

@@ -1,6 +1,6 @@
 import { STATUS } from '../constants/constants.js'
 import factory from '../services/factory.js'
-import { __dirname } from '../utils/uploader.utils.js'
+// import { __dirname } from '../utils/uploader.utils.js'
 
 export const createUser = async (req, res) => {
   try {
@@ -113,6 +113,23 @@ export const updateUserRole = async (req, res) => {
 
 export const uploadFiles = async (req, res) => {
   try {
+
+    const { uid } = req.params
+    const { file } = req
+    const { fileName } = req
+    let reference = ''
+
+    if (file.fieldname === 'profile') {
+      reference = `./uploads/profile/${fileName}`
+    } else if ( file.fieldname === 'product') {
+      reference = `./uploads/products/${fileName}`
+    } else {
+      reference = `./uploads/documents/${fileName}`
+    }
+
+    let user = await factory.users.getUserById(uid)
+    user.documents.push({name: fileName, reference})
+    await factory.users.updateUser(user.email, user, false)
 
     res.status(201).json({
       status: STATUS.SUCCESS,

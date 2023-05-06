@@ -8,6 +8,10 @@ export const __dirname = dirname(__filename)
 const storage = multer.diskStorage({
 
   destination:function(req, file, cb){
+
+    // Add file object to req
+    req.file = file
+
     if (file.fieldname === 'profile') {
       cb(null, `${__dirname}/../../uploads/profile`)
     } else if ( file.fieldname === 'product') {
@@ -18,7 +22,8 @@ const storage = multer.diskStorage({
   },
 
   filename:function(req, file, cb){
-    cb(null,`${Date.now()}-${file.originalname}`)
+    req.fileName = `${Date.now()}-${file.originalname}`
+    cb(null, req.fileName)
   }
 
 })
