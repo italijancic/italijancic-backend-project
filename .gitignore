@@ -6,10 +6,7 @@ errors.log
 
 # Uploads files
 uploads/documents/*
-!uploads/documents/
 
 uploads/products/*
-!uploads/products/
 
 uploads/profile/*
-!uploads/profile/
