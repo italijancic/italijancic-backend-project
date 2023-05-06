@@ -5,7 +5,7 @@ package-lock.json
 errors.log
 
 # Uploads files
-ploads/documents/*
+uploads/documents/*
 !uploads/documents/
 
 uploads/products/*

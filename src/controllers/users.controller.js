@@ -1,6 +1,6 @@
 import { STATUS } from '../constants/constants.js'
 import factory from '../services/factory.js'
-// import { __dirname } from '../utils/uploader.utils.js'
+import { checkRequiredFiles } from '../utils/checkFiles.utils.js'
 
 export const createUser = async (req, res) => {
   try {
@@ -91,6 +91,8 @@ export const updateUserRole = async (req, res) => {
 
   try {
     const { uid } = req.params
+
+    await checkRequiredFiles(uid)
 
     let user = await factory.users.getUserById(uid)
     user.role = 'premium'
