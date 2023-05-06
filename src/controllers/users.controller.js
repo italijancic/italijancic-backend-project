@@ -129,6 +129,7 @@ export const uploadFiles = async (req, res) => {
 
     let user = await factory.users.getUserById(uid)
     user.documents.push({name: fileName, reference})
+    user.status = 'files loaded'
     await factory.users.updateUser(user.email, user, false)
 
     res.status(201).json({
