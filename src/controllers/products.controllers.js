@@ -1,6 +1,6 @@
 import { STATUS } from '../constants/constants.js'
 import factory from '../services/factory.js'
-import { getProductsMocks } from '../mocks/procuts.mock.js'
+import { getProductsMocks } from '../mocks/produts.mock.js'
 
 export const getProducts = async (req, res) => {
   try {
