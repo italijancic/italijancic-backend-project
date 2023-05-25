@@ -1,6 +1,7 @@
 import _ from 'lodash'
 
 import productModel from '../../models/Product.model.js'
+import * as emailUtils from '../../utils/nodemailer.utils.js'
 
 class ProductMongo {
 
@@ -102,6 +103,7 @@ class ProductMongo {
 
         if ( user.role === 'premium' && foundedProduct.owner._id == user._id) {
           await this.product.delete({ _id: productId })
+          emailUtils.sendProductDeletedEmail(user.email)
           return
         } else {
           throw new Error('premium role user can only delethe his products')

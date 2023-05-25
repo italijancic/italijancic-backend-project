@@ -203,7 +203,7 @@ export const deleteInactiveUsers = async (req, res) => {
       const days = moment().diff(moment(user.lastConecction), 'days')
       if (days >= days) {
         await factory.users.deleteUser(user.id)
-        emailUtils.sendDelteAccountEmail(user.email)
+        emailUtils.sendAccountDeletedEmail(user.email)
       }
     }
 

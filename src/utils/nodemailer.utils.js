@@ -33,7 +33,25 @@ export const sendEmail = async (email) => {
   }
 }
 
-export const sendDelteAccountEmail = async (email) => {
+export const sendAccountDeletedEmail = async (email) => {
+  try {
+
+    const emailOptions = {
+      from: configs.gmailUser,
+      to: email,
+      subject: 'Account deleted',
+      text: 'Your account has been deleted because of inactivity'
+    }
+
+    const result = await transportGmail.sendMail(emailOptions)
+    return result
+
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+export const sendProductDeletedEmail = async (email) => {
   try {
 
     const emailOptions = {
