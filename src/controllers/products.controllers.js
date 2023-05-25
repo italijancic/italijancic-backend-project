@@ -52,7 +52,7 @@ export const postProduct = async (req, res) => {
   try {
     const product = req.body
 
-    product.owner = req.session.user._id
+    product.owner = req.session.user.id
 
     // Save on MongoDB
     const savedProduct = await factory.products.createProduct(product)
