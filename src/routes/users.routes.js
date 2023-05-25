@@ -28,8 +28,11 @@ router.put('/updateUser/:email', usersControllers.updateUser)
 // Update password
 router.put('/updatePassword/:email', usersControllers.updatePassword)
 
-// Get user
-router.get('/', usersControllers.getUser)
+// Get users
+router.get('/', usersControllers.getUsers)
+
+// Get user by email
+router.get('/:email', usersControllers.getUser)
 
 router.post('/premium/:uid', usersControllers.updateUserRole)
 

@@ -9,6 +9,18 @@ class UserMongo {
     this.cart = cartModel
   }
 
+  async getUsers() {
+    try {
+      const users = await this.user.find({}).lean()
+      if (users.length === 0) {
+        throw new Error('Error searching users')
+      }
+      return users
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
   async getUser(email) {
     try {
       const user = await this.user.findOne({ email: email }).lean()
@@ -32,7 +44,6 @@ class UserMongo {
       throw new Error(error.message)
     }
   }
-
 
   async getUserByCartId(cartId) {
     try {

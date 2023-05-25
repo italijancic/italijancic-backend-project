@@ -22,9 +22,25 @@ export const createUser = async (req, res) => {
   }
 }
 
+export const getUsers = async (req, res) => {
+  try {
+    const users = await factory.users.getUsers()
+
+    res.status(200).json({
+      status: STATUS.SUCCESS,
+      user: users
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: STATUS.FAIL,
+      message: error.message
+    })
+  }
+}
+
 export const getUser = async (req, res) => {
   try {
-    const { email } = req.query
+    const { email } = req.params
 
     const user = await factory.users.getUser(email)
 

@@ -1,8 +1,22 @@
+import FilteredUserDTO from './filteredUser.dto.js'
 import UserDTO from './users.dto.js'
 
 export class UserRepository {
   constructor(dao) {
     this.dao = dao
+  }
+
+  async getUsers() {
+    try {
+      const users = await this.dao.getUsers()
+      const usersDTO = []
+      users.forEach((user) => {
+        usersDTO.push(new FilteredUserDTO(user))
+      })
+      return usersDTO
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
 
   async getUser(email) {
