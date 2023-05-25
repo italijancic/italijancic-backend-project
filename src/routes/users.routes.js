@@ -31,8 +31,11 @@ router.put('/updatePassword/:email', usersControllers.updatePassword)
 // Get users
 router.get('/', usersControllers.getUsers)
 
-// Get users
-router.delete('/', usersControllers.deleteUsers)
+// Delete user by email
+router.delete('/:email', usersControllers.deleteUser)
+
+// Delete inactive users
+router.delete('/', usersControllers.deleteInactiveUsers)
 
 // Get user by email
 router.get('/:email', usersControllers.getUser)

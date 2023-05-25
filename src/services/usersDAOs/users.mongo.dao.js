@@ -11,9 +11,9 @@ class UserMongo {
 
   async getUsers() {
     try {
-      const users = await this.user.find( { deleted: { $eq: false } } ).lean()
+      const users = await this.user.find( { deleted: { $eq: false } } )
       if (users.length === 0) {
-        throw new Error('Error searching users')
+        throw new Error('Users list is empty')
       }
       return users
     } catch (error) {

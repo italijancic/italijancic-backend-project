@@ -34,10 +34,17 @@ export const getUsers = async (req, res) => {
       user: users
     })
   } catch (error) {
-    res.status(500).json({
-      status: STATUS.FAIL,
-      message: error.message
-    })
+    if (error.message === 'Users list is empty') {
+      res.status(200).json({
+        status: STATUS.SUCCESS,
+        message: 'Users list is clean',
+      })
+    } else {
+      res.status(500).json({
+        status: STATUS.FAIL,
+        message: error.message,
+      })
+    }
   }
 }
 
@@ -166,19 +173,38 @@ export const uploadFiles = async (req, res) => {
   }
 }
 
-export const deleteUsers = async (req, res) => {
+export const deleteUser = async (req, res) => {
+  try {
+
+    const { email } = req.params
+
+    const user = await factory.users.getUser(email)
+
+    await factory.users.deleteUser(user.id)
+
+    res.status(200).json({
+      status: STATUS.SUCCESS,
+      message: 'User deleted',
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: STATUS.FAIL,
+      message: error.message,
+    })
+  }
+}
+
+export const deleteInactiveUsers = async (req, res) => {
   try {
 
     const users = await factory.users.getUsers(false)
 
     for await (const user of users ){
       const days = moment().diff(moment(user.lastConecction), 'days')
-
       if (days >= days) {
         await factory.users.deleteUser(user.id)
         emailUtils.sendDelteAccountEmail(user.email)
       }
-
     }
 
     const result = await factory.users.getUsers(true)
@@ -190,9 +216,16 @@ export const deleteUsers = async (req, res) => {
     })
 
   } catch (error) {
-    res.status(500).json({
-      status: STATUS.FAIL,
-      message: error.message,
-    })
+    if (error.message === 'Users list is empty') {
+      res.status(200).json({
+        status: STATUS.SUCCESS,
+        message: 'Users list is clean',
+      })
+    } else {
+      res.status(500).json({
+        status: STATUS.FAIL,
+        message: error.message,
+      })
+    }
   }
 }
