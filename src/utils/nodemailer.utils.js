@@ -57,8 +57,8 @@ export const sendProductDeletedEmail = async (email) => {
     const emailOptions = {
       from: configs.gmailUser,
       to: email,
-      subject: 'Account deleted',
-      text: 'Your account has been deleted because of inactivity'
+      subject: 'Product deleted',
+      text: 'A product has been deleted using your account'
     }
 
     const result = await transportGmail.sendMail(emailOptions)
