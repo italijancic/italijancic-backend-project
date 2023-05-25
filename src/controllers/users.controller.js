@@ -1,6 +1,9 @@
+import moment from 'moment'
+
 import { STATUS } from '../constants/constants.js'
 import factory from '../services/factory.js'
 import { checkRequiredFiles } from '../utils/checkFiles.utils.js'
+import * as emailUtils from '../utils/nodemailer.utils.js'
 
 export const createUser = async (req, res) => {
   try {
@@ -24,7 +27,7 @@ export const createUser = async (req, res) => {
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await factory.users.getUsers()
+    const users = await factory.users.getUsers(true)
 
     res.status(200).json({
       status: STATUS.SUCCESS,
@@ -153,6 +156,37 @@ export const uploadFiles = async (req, res) => {
     res.status(201).json({
       status: STATUS.SUCCESS,
       message: 'File upload OK',
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      status: STATUS.FAIL,
+      message: error.message,
+    })
+  }
+}
+
+export const deleteUsers = async (req, res) => {
+  try {
+
+    const users = await factory.users.getUsers(false)
+
+    for await (const user of users ){
+      const days = moment().diff(moment(user.lastConecction), 'days')
+
+      if (days >= days) {
+        await factory.users.deleteUser(user.id)
+        emailUtils.sendDelteAccountEmail(user.email)
+      }
+
+    }
+
+    const result = await factory.users.getUsers(true)
+
+    res.status(200).json({
+      status: STATUS.SUCCESS,
+      message: 'Users list clean OK',
+      users: result
     })
 
   } catch (error) {

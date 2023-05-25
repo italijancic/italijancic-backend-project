@@ -11,7 +11,7 @@ class UserMongo {
 
   async getUsers() {
     try {
-      const users = await this.user.find({}).lean()
+      const users = await this.user.find( { deleted: { $eq: false } } ).lean()
       if (users.length === 0) {
         throw new Error('Error searching users')
       }
@@ -94,6 +94,15 @@ class UserMongo {
         return updatedUser
       }
 
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
+  async deleteUser(userId) {
+    try {
+      await this.user.delete({ _id: userId })
+      return
     } catch (error) {
       throw new Error(error.message)
     }

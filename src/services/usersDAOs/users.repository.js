@@ -6,13 +6,19 @@ export class UserRepository {
     this.dao = dao
   }
 
-  async getUsers() {
+  async getUsers(filtered) {
     try {
       const users = await this.dao.getUsers()
       const usersDTO = []
-      users.forEach((user) => {
-        usersDTO.push(new FilteredUserDTO(user))
-      })
+      if (filtered) {
+        users.forEach((user) => {
+          usersDTO.push(new FilteredUserDTO(user))
+        })
+      } else {
+        users.forEach((user) => {
+          usersDTO.push(new UserDTO(user))
+        })
+      }
       return usersDTO
     } catch (error) {
       throw new Error(error.message)
@@ -68,6 +74,15 @@ export class UserRepository {
       const userDTO = new UserDTO(updatedUser)
       return userDTO
 
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
+  async deleteUser(userId) {
+    try {
+      await this.dao.deleteUser(userId)
+      return
     } catch (error) {
       throw new Error(error.message)
     }
