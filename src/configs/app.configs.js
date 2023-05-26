@@ -17,6 +17,7 @@ const configs = {
   gmailAppPass: process.env.GMAIL_APP_PASS || null,
   gmailUser: process.env.GMAIL_USER || null,
   jwtSecret: process.env.JWT_SECRET || null,
+  backUrl: process.env.BACK_URL || 'http://localhost:3000',
 }
 
 export default configs

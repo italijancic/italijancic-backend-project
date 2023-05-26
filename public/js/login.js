@@ -3,7 +3,8 @@
 document.querySelector('#restorePassword').addEventListener('click', (evt) => {
   evt.preventDefault()
 
-  fetch('http://localhost:3000/api/restorePassword', {
+  // fetch('http://localhost:3000/api/restorePassword', {
+  fetch(`${backUrl}/api/restorePassword`, {
     method: 'POST',
     body: JSON.stringify({ email: document.querySelector('#email').value }),
     headers: {
@@ -21,7 +22,8 @@ document.querySelector('#restorePassword').addEventListener('click', (evt) => {
           confirmButtonText: 'Ok',
         }).then(result => {
           if (result.isConfirmed) {
-            window.location.replace('http://localhost:3000/login')
+            // window.location.replace('http://localhost:3000/login')
+            window.location.replace(`${backUrl}:3000/login`)
           }
         })
 
@@ -42,7 +44,7 @@ document.querySelector('#restorePassword').addEventListener('click', (evt) => {
         confirmButtonText: 'Retry',
       }).then(result => {
         if (result.isConfirmed) {
-          window.location.replace('http://localhost:3000/login')
+          window.location.replace(`${backUrl}/login`)
         }
       })
     })

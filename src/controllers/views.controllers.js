@@ -1,10 +1,11 @@
+import configs from '../configs/app.configs.js'
 import { STATUS } from '../constants/constants.js'
 import factory from '../services/factory.js'
 
 export const login = async (req, res) => {
   try {
 
-    res.render('login', {})
+    res.render('login', {configs})
 
   } catch (error) {
     res.status(500).json({
@@ -17,7 +18,7 @@ export const login = async (req, res) => {
 export const register = async (req, res) => {
   try {
 
-    res.render('register', {})
+    res.render('register', {configs})
 
   } catch (error) {
     res.status(500).json({
@@ -35,7 +36,8 @@ export const getHome = async (req, res) => {
 
     res.render('index', {
       user: req.session.user,
-      products: productsList
+      products: productsList,
+      configs
     })
 
   } catch (error) {
@@ -54,7 +56,7 @@ export const getProducts = async (req, res) => {
     // Get produts from DB
     const data = await factory.products.getProducts( { limit: 2, page: page === undefined ? 1 : page, sort: 'asc', query: null })
 
-    res.render('products', {...data})
+    res.render('products', {...data, configs})
 
   } catch (error) {
     res.status(500).json({
@@ -71,7 +73,8 @@ export const getRealTimeProducts = async (req, res) => {
     const productsList = (await factory.products.getProducts()).products
 
     res.render('realTimeProducts', {
-      products: productsList
+      products: productsList,
+      configs
     })
 
   } catch (error) {

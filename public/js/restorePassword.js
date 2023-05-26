@@ -7,7 +7,7 @@ document.querySelector('#register').addEventListener('click', (evt) => {
     password: document.querySelector('#password').value
   }
 
-  fetch('http://localhost:3000/api/restorePassword', {
+  fetch(`${backUrl}/api/restorePassword`, {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: {
@@ -24,7 +24,7 @@ document.querySelector('#register').addEventListener('click', (evt) => {
           confirmButtonText: 'Ok',
         }).then(result => {
           if (result.isConfirmed) {
-            window.location.replace('http://localhost:3000/login')
+            window.location.replace(`${backUrl}/login`)
           }
         })
       }
