@@ -1,0 +1,12 @@
+.DS_Store
+node_modules
+package-lock.json
+.env
+errors.log
+
+# Uploads files
+uploads/documents/*
+
+uploads/products/*
+
+uploads/profile/*

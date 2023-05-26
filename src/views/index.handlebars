@@ -1,0 +1,23 @@
+<h1>Products List</h1>
+
+<h2>Wellcome: {{user.firstName}} {{user.lastName}} (role: {{user.role}})</h2>
+
+<ul>
+  {{#each products as |product|}}
+    <li>id: {{product._id}}</li>
+    <ul>
+      <li>title: {{product.title}}</li>
+      <li>description: {{product.description}}</li>
+      <li>code: {{product.code}}</li>
+      <li>price: {{product.price}}</li>
+      <li>status: {{product.status}}</li>
+      <li>stock: {{product.stock}}</li>
+      <li>category: {{product.category}}</li>
+      <li>thumbnails: {{product.thumbnails}}</li>
+    </ul>
+  {{/each}}
+</ul>
+
+<form action="{{configs.backUrl}}/api/auth/logout" method="get">
+  <button type="submit">Logout</button>
+</form>
