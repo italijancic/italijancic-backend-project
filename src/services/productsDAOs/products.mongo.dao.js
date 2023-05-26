@@ -41,7 +41,7 @@ class ProductMongo {
 
     try {
 
-      const product = await this.product.findById(productId)
+      const product = await this.product.findById(productId).lean()
       if (product) {
         return product
       } else {

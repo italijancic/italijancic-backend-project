@@ -158,7 +158,10 @@ export const purchase = async (req, res) => {
         // Update product stock
         await factory.products.updateProduct(product.id, product)
         // Delete product from cart
-        factory.carts.deleteProductToCart(cid, item.product)
+        const arr = new Array(item.quantity).fill(0)
+        for await (const element of arr) {
+          await factory.carts.deleteProductToCart(cid, item.product)
+        }
       }
     }
 

@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "f792acca-2091-4797-b499-a99b3dd69e47",
-		"name": "project",
+		"_postman_id": "945db548-4fd0-48d2-bb4f-036394d43d0c",
+		"name": "CH Final",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21958330"
 	},
@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{LocalBackURL}}/api/products?limit=5&page=1&sort=desc&query={\"category\": \"Test-3\"}",
+					"raw": "{{LocalBackURL}}/api/products?limit=5&page=1&sort=desc",
 					"host": [
 						"{{LocalBackURL}}"
 					],
@@ -40,7 +40,8 @@
 						},
 						{
 							"key": "query",
-							"value": "{\"category\": \"Test-3\"}"
+							"value": "{\"category\": \"Test-3\"}",
+							"disabled": true
 						}
 					]
 				}
@@ -65,7 +66,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "63d1acde9e18bea744ed5394"
+							"value": "641635f5be1b3a8cfe063225"
 						}
 					]
 				}
@@ -79,7 +80,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Test product from postman\",\n    \"description\": \"Producto de prueba\",\n    \"code\": \"KSDF87JKL\",\n    \"price\": 300,\n    \"status\": true,\n    \"stock\": 30,\n    \"category\": \"Test-3\",\n    \"thumbnails\": [\"./imgs/img-3.jpg\", \"./imgs/img-3-2.jpg\"]\n}",
+					"raw": "{\n    \"title\": \"Test product\",\n    \"description\": \"Product created with premium user role\",\n    \"code\": \"LMNW87LKJAS76\",\n    \"price\": 24,\n    \"status\": true,\n    \"stock\": 24,\n    \"category\": \"Test-Premium\",\n    \"thumbnails\": [\"./imgs/img-3.jpg\", \"./imgs/img-3-2.jpg\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -126,7 +127,7 @@
 					"variable": [
 						{
 							"key": "pid",
-							"value": "63c9db6a491245d775b2d2bb"
+							"value": "63c9d316a89db3eb82e330e8"
 						}
 					]
 				}
@@ -192,7 +193,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"quantity\": 4\n}",
+					"raw": "{\n  \"quantity\": 2\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -214,11 +215,11 @@
 					"variable": [
 						{
 							"key": "cid",
-							"value": "63d5732ee0de0445ad3eb50f"
+							"value": "642ca89b5496c44ff319c2b9"
 						},
 						{
 							"key": "pid",
-							"value": "63c9d334a89db3eb82e330ec"
+							"value": "642caab2d6c8db02602f2602"
 						}
 					]
 				}
@@ -277,7 +278,7 @@
 					"variable": [
 						{
 							"key": "cid",
-							"value": "63cc3e8d2c65e040768e2e1c"
+							"value": "64569ef4d88051dd1116b3cd"
 						}
 					]
 				}
@@ -304,11 +305,480 @@
 					"variable": [
 						{
 							"key": "cid",
-							"value": "63d5732ee0de0445ad3eb50f"
+							"value": "642ca89b5496c44ff319c2b9"
 						},
 						{
 							"key": "pid",
-							"value": "63c9d334a89db3eb82e330ec"
+							"value": "63c9d316a89db3eb82e330e8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"italijancic@outlook.com\",\n  \"password\": \"test1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LocalBackURL}}/api/auth/login",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Passport Local Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"italijancic@outlook.com\",\n  \"password\": \"test1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LocalBackURL}}/api/passportLocal/login",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"passportLocal",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Ivan\",\n  \"lastName\": \"Talijancic\",\n  \"email\": \"italijancic@outlook.com\",\n  \"age\": 32,\n  \"password\": \"test1234\",\n  \"role\": \"user\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LocalBackURL}}/api/users",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp PassportLocal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Ivan\",\n  \"lastName\": \"Talijancic\",\n  \"age\": 32,\n  \"email\": \"italijancic@outlook.com\",\n  \"password\": \"test1234\",\n  \"role\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LocalBackURL}}/api/passportLocal/singup",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"passportLocal",
+						"singup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LocalBackURL}}/api/users/:email",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":email"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "email",
+							"value": "admin@test.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LocalBackURL}}/api/users",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete users",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{LocalBackURL}}/api/users",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete users Copy",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{LocalBackURL}}/api/users/:email",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":email"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": "",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "email",
+							"value": "admin@test.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Current Session",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LocalBackURL}}/api/sessions/current",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"sessions",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Enzo\",\n  \"lastName\": \"Spesot\",\n  \"email\": \"chenzo@test.com\",\n  \"age\": 33,\n  \"password\": \"test1234\",\n  \"role\": \"user\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LocalBackURL}}/api/users/updateUser/:email",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"updateUser",
+						":email"
+					],
+					"variable": [
+						{
+							"key": "email",
+							"value": "chenzo@test.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user password",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Enzo\",\n  \"lastName\": \"Spesot\",\n  \"email\": \"chenzo@test.com\",\n  \"age\": 33,\n  \"password\": \"test1234\",\n  \"role\": \"user\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LocalBackURL}}/api/users/updatePassword/:email",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"updatePassword",
+						":email"
+					],
+					"variable": [
+						{
+							"key": "email",
+							"value": "chenzo@test.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "end purchase",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{LocalBackURL}}/api/carts/:cid/purchase",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						":cid",
+						"purchase"
+					],
+					"variable": [
+						{
+							"key": "cid",
+							"value": "63f7fd25a9cd3ef457587ae5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LocalBackURL}}/api/auth/logout",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "moking",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LocalBackURL}}/api/products/mockingproducts",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"mockingproducts"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "desc",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change user to premiun",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{LocalBackURL}}/api/users/premium/:uid",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"premium",
+						":uid"
+					],
+					"variable": [
+						{
+							"key": "uid",
+							"value": "64569ef4d88051dd1116b3cf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "document",
+							"type": "file",
+							"src": "/Users/italijancic/Downloads/test-files/AddressValidation.txt"
+						},
+						{
+							"key": "profile",
+							"type": "file",
+							"src": "/Users/italijancic/Downloads/qr.jpeg",
+							"disabled": true
+						},
+						{
+							"key": "product",
+							"type": "file",
+							"src": "/Users/italijancic/Downloads/examen 01-08-2002.pdf",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{LocalBackURL}}/api/users/:uid/documents",
+					"host": [
+						"{{LocalBackURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":uid",
+						"documents"
+					],
+					"variable": [
+						{
+							"key": "uid",
+							"value": "64569ef4d88051dd1116b3cf"
 						}
 					]
 				}
