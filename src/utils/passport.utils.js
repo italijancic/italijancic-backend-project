@@ -57,7 +57,8 @@ passport.use('login', new passportLocal.Strategy( {passReqToCallback: true, user
 passport.use('github', new passportGitHub.Strategy({
   clientID: configs.gitHub.clientId,
   clientSecret: configs.gitHub.clientSecret,
-  callbackURL: 'http://localhost:3000/api/github/callback'
+  // callbackURL: 'http://localhost:3000/api/github/callback'
+  callbackURL: `${configs.backUrl}/api/github/callback`
 }, async (accessToken, refreshToken, profile, done) => {
   try {
 
@@ -82,7 +83,8 @@ passport.use('github', new passportGitHub.Strategy({
 passport.use('githubLogin', new passportGitHub.Strategy({
   clientID: configs.gitHub.clientId,
   clientSecret: configs.gitHub.clientSecret,
-  callbackURL:'http://localhost:3000/api/github/callback'
+  callbackURL:`${configs.backUrl}/api/github/callback`
+  // callbackURL:'http://localhost:3000/api/github/callback'
 }, async (accessToken, refreshToken, profile, done) => {
   try {
 
