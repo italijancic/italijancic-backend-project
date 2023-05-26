@@ -6,8 +6,8 @@ import configs from '../configs/app.configs.js'
 
 import { User } from '../models/User.model.js'
 
-import factory from '../services/factory.js'
 import * as authServices from '../services/auth.services.js'
+import * as usersServices from '../services/users.services.js'
 
 // This two functions are allways required
 passport.serializeUser( function(user, done) {
@@ -30,7 +30,7 @@ passport.use('singup', new passportLocal.Strategy( { passReqToCallback: true, us
       return done('User already exist', false)
     } else {
       // Call our service in prder to create a new user with hash password
-      const user = await factory.users.createUser(req.body)
+      const user = await usersServices.createUser(req.body)
       return done(null, user)
     }
   } catch (error) {
@@ -44,7 +44,7 @@ passport.use('login', new passportLocal.Strategy( {passReqToCallback: true, user
     const login = await authServices.login(username, password)
 
     if (login) {
-      const user = await factory.users.getUser(username)
+      const user = await User.findOne({email: username})
       return done(null, user)
     } else {
       return done('Error on login', false)
@@ -57,7 +57,6 @@ passport.use('login', new passportLocal.Strategy( {passReqToCallback: true, user
 passport.use('github', new passportGitHub.Strategy({
   clientID: configs.gitHub.clientId,
   clientSecret: configs.gitHub.clientSecret,
-  // callbackURL: 'http://localhost:3000/api/github/callback'
   callbackURL: `${configs.backUrl}/api/github/callback`
 }, async (accessToken, refreshToken, profile, done) => {
   try {
@@ -71,7 +70,7 @@ passport.use('github', new passportGitHub.Strategy({
       email:profile._json.email
     }
 
-    const user = await factory.users.create(newUser)
+    const user = await usersServices.createUser(newUser)
 
     done(null, user)
 
@@ -84,13 +83,12 @@ passport.use('githubLogin', new passportGitHub.Strategy({
   clientID: configs.gitHub.clientId,
   clientSecret: configs.gitHub.clientSecret,
   callbackURL:`${configs.backUrl}/api/github/callback`
-  // callbackURL:'http://localhost:3000/api/github/callback'
 }, async (accessToken, refreshToken, profile, done) => {
   try {
 
     const user = await User.findOne( { email: profile._json.email } )
-
     return done(null, user)
+
   } catch (error) {
     throw new Error(error.message)
   }

@@ -10,7 +10,7 @@ router.get('/fail', (req, res) => {
   console.log('Fail')
 
   res.status(401).json({
-    success: false,
+    success: STATUS.FAILJJ,
     message: 'Error on passport strategy'
   })
 
@@ -20,11 +20,7 @@ router.post('/singup', passport.authenticate('singup', {
   failureRedirect: '/api/passportLocal/fail'
 }), (req, res) => {
 
-  res.status(200).json({
-    success: STATUS.SUCCESS,
-    message: 'User created OK',
-    createdUser: req.user
-  })
+  res.redirect('/')
 
 })
 
@@ -36,11 +32,7 @@ router.post('/login', passport.authenticate('login', {
   req.session.logged = true
   req.session.user = req.user
 
-  res.status(200).json({
-    success: STATUS.SUCCESS,
-    message: 'User login OK',
-    loggedUser: req.session.user
-  })
+  res.redirect('/')
 })
 
 export default router
