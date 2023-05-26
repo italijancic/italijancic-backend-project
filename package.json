@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --inspect ./src/index.js",
-    "test": "mocha ./src/test/tests.test.js"
+    "test": "mocha ./src/test/tests.test.js",
+    "start": "node ./src/index.js"
   },
   "keywords": [],
   "author": "",
